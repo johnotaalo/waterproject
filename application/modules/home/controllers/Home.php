@@ -1,6 +1,6 @@
 <?php
 
-class Home extends MX_Controller
+class Home extends MY_Controller
 {
 	function __construct()
 	{
@@ -9,6 +9,7 @@ class Home extends MX_Controller
 
 	function index()
 	{
-		echo "Home";die;
+		$data['title'] = "Home page";
+		$this->template->call_admin_template($data);
 	}
 }

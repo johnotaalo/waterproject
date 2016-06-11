@@ -1,0 +1,4 @@
+.htaccess
+water.sql
+application/config/database.php
+template/*
