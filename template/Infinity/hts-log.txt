@@ -1,0 +1,48 @@
+HTTrack3.48-1+libhtsjava.so.2 launched on Sat, 11 Jun 2016 14:45:45 at http://envato.rathemes.com/infinity/default/index.html +*.png +*.gif +*.jpg +*.css +*.js -ad.doubleclick.net/*
+(webhttrack -q -%i -w http://envato.rathemes.com/infinity/default/index.html -O "/home/bazil/websites/Infinity" -n -%P -N0 -s2 -p7 -D -a -K0 -c4 -%k -A25000 -F "Mozilla/4.5 (compatible; HTTrack 3.0x; Windows 98)" -%F "<!-- Mirrored from %s%s by HTTrack Website Copier/3.x [XR&CO'2013], %s -->" +*.png +*.gif +*.jpg +*.css +*.js -ad.doubleclick.net/* -%s -%u )
+
+Information, Warnings and Errors reported for this mirror:
+note:	the hts-log.txt file, and hts-cache folder, may contain sensitive information,
+	such as username/password authentication for websites mirrored in this project
+	do not share these files/folders if you want these information to remain private
+
+14:45:47	Error: 	"Internal Server Error" (500) after 2 retries at link envato.rathemes.com/robots.txt (from primary/primary)
+14:46:57	Warning: 	Retry after error 500 (Internal Server Error) at link envato.rathemes.com/infinity/default/settings.html (from envato.rathemes.com/infinity/default/index.html)
+14:46:57	Warning: 	Retry after error 500 (Internal Server Error) at link envato.rathemes.com/infinity/default/logout.html (from envato.rathemes.com/infinity/default/index.html)
+14:47:49	Warning: 	Retry after error 500 (Internal Server Error) at link envato.rathemes.com/infinity/default/settings.html (from envato.rathemes.com/infinity/default/index.html)
+14:47:50	Warning: 	Retry after error 500 (Internal Server Error) at link envato.rathemes.com/infinity/default/logout.html (from envato.rathemes.com/infinity/default/index.html)
+14:47:51	Error: 	"Internal Server Error" (500) after 2 retries at link envato.rathemes.com/infinity/default/settings.html (from envato.rathemes.com/infinity/default/index.html)
+14:47:51	Error: 	"Internal Server Error" (500) after 2 retries at link envato.rathemes.com/infinity/default/logout.html (from envato.rathemes.com/infinity/default/index.html)
+14:48:01	Warning: 	HTML file (55013 bytes) retransferred due to lack of cache: envato.rathemes.com/infinity/default/profile.html
+14:48:32	Warning: 	HTML file (682 bytes) retransferred due to lack of cache: envato.rathemes.com/infinity/default/settings.html
+14:48:33	Warning: 	Retry after error 500 (Internal Server Error) at link envato.rathemes.com/infinity/default/settings.html (from envato.rathemes.com/infinity/default/index.html)
+14:48:33	Warning: 	HTML file (39400 bytes) retransferred due to lack of cache: envato.rathemes.com/infinity/default/mail-view.html
+14:48:33	Warning: 	HTML file (682 bytes) retransferred due to lack of cache: envato.rathemes.com/infinity/default/settings.html
+14:48:34	Warning: 	Retry after error 500 (Internal Server Error) at link envato.rathemes.com/infinity/default/Popover requires tooltip.js (from envato.rathemes.com/infinity/libs/bower/bootstrap-sass/assets/javascripts/bootstrap.js)
+14:48:42	Error: 	"Internal Server Error" (500) after 2 retries at link envato.rathemes.com/infinity/default/settings.html (from envato.rathemes.com/infinity/default/index.html)
+14:48:42	Warning: 	Retry after error 500 (Internal Server Error) at link envato.rathemes.com/infinity/default/Popover requires tooltip.js (from envato.rathemes.com/infinity/libs/bower/bootstrap-sass/assets/javascripts/bootstrap.js)
+14:48:42	Warning: 	Retry after error 500 (Internal Server Error) at link envato.rathemes.com/infinity/assets/js/clipboard.png (from envato.rathemes.com/infinity/libs/bower/summernote/dist/summernote.min.js)
+14:48:42	Warning: 	Retry after error 500 (Internal Server Error) at link envato.rathemes.com/infinity/assets/js/zlib/deflate.js (from envato.rathemes.com/infinity/libs/misc/datatables/datatables.min.js)
+14:48:43	Warning: 	Retry after error 500 (Internal Server Error) at link envato.rathemes.com/infinity/assets/js/zlib/inflate.js (from envato.rathemes.com/infinity/libs/misc/datatables/datatables.min.js)
+14:48:43	Warning: 	Retry after error 500 (Internal Server Error) at link envato.rathemes.com/infinity/assets/js/buttons.pdf (from envato.rathemes.com/infinity/libs/misc/datatables/datatables.min.js)
+14:48:43	Warning: 	Retry after error 500 (Internal Server Error) at link envato.rathemes.com/infinity/assets/js/[Content_Types].xml (from envato.rathemes.com/infinity/libs/misc/datatables/datatables.min.js)
+14:48:43	Warning: 	Retry after error 500 (Internal Server Error) at link envato.rathemes.com/infinity/assets/js/workbook.xml (from envato.rathemes.com/infinity/libs/misc/datatables/datatables.min.js)
+14:48:43	Warning: 	Retry after error 500 (Internal Server Error) at link envato.rathemes.com/infinity/assets/js/sheet1.xml (from envato.rathemes.com/infinity/libs/misc/datatables/datatables.min.js)
+14:48:43	Error: 	"Internal Server Error" (500) after 2 retries at link envato.rathemes.com/infinity/default/Popover requires tooltip.js (from envato.rathemes.com/infinity/libs/bower/bootstrap-sass/assets/javascripts/bootstrap.js)
+14:48:43	Warning: 	Retry after error 500 () at link envato.rathemes.com/infinity/assets/js/clipboard.png (from envato.rathemes.com/infinity/libs/bower/summernote/dist/summernote.min.js)
+14:48:43	Warning: 	Retry after error 500 (Internal Server Error) at link envato.rathemes.com/infinity/assets/js/zlib/deflate.js (from envato.rathemes.com/infinity/libs/misc/datatables/datatables.min.js)
+14:48:44	Warning: 	Retry after error 500 (Internal Server Error) at link envato.rathemes.com/infinity/assets/js/zlib/inflate.js (from envato.rathemes.com/infinity/libs/misc/datatables/datatables.min.js)
+14:48:44	Warning: 	Retry after error 500 (Internal Server Error) at link envato.rathemes.com/infinity/assets/js/buttons.pdf (from envato.rathemes.com/infinity/libs/misc/datatables/datatables.min.js)
+14:48:44	Warning: 	Retry after error 500 (Internal Server Error) at link envato.rathemes.com/infinity/assets/js/[Content_Types].xml (from envato.rathemes.com/infinity/libs/misc/datatables/datatables.min.js)
+14:48:44	Warning: 	Retry after error 500 (Internal Server Error) at link envato.rathemes.com/infinity/assets/js/workbook.xml (from envato.rathemes.com/infinity/libs/misc/datatables/datatables.min.js)
+14:48:44	Warning: 	Retry after error 500 (Internal Server Error) at link envato.rathemes.com/infinity/assets/js/sheet1.xml (from envato.rathemes.com/infinity/libs/misc/datatables/datatables.min.js)
+14:48:45	Error: 	"" (500) after 2 retries at link envato.rathemes.com/infinity/assets/js/clipboard.png (from envato.rathemes.com/infinity/libs/bower/summernote/dist/summernote.min.js)
+14:48:45	Error: 	"Internal Server Error" (500) after 2 retries at link envato.rathemes.com/infinity/assets/js/zlib/deflate.js (from envato.rathemes.com/infinity/libs/misc/datatables/datatables.min.js)
+14:48:45	Error: 	"Internal Server Error" (500) after 2 retries at link envato.rathemes.com/infinity/assets/js/zlib/inflate.js (from envato.rathemes.com/infinity/libs/misc/datatables/datatables.min.js)
+14:48:45	Error: 	"Internal Server Error" (500) after 2 retries at link envato.rathemes.com/infinity/assets/js/buttons.pdf (from envato.rathemes.com/infinity/libs/misc/datatables/datatables.min.js)
+14:48:45	Error: 	"Internal Server Error" (500) after 2 retries at link envato.rathemes.com/infinity/assets/js/[Content_Types].xml (from envato.rathemes.com/infinity/libs/misc/datatables/datatables.min.js)
+14:48:45	Error: 	"Internal Server Error" (500) after 2 retries at link envato.rathemes.com/infinity/assets/js/workbook.xml (from envato.rathemes.com/infinity/libs/misc/datatables/datatables.min.js)
+14:48:45	Error: 	"Internal Server Error" (500) after 2 retries at link envato.rathemes.com/infinity/assets/js/sheet1.xml (from envato.rathemes.com/infinity/libs/misc/datatables/datatables.min.js)
+
+HTTrack Website Copier/3.48-1 mirror complete in 3 minutes 0 seconds : 184 links scanned, 153 files written (7858355 bytes overall) [6396175 bytes received at 35534 bytes/sec], 1913665 bytes transferred using HTTP compression in 124 files, ratio 18%, 19.3 requests per connection
+(12 errors, 25 warnings, 0 messages)
