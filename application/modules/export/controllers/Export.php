@@ -46,7 +46,7 @@ $pdf->SetFooter($_SERVER['HTTP_HOST'].'|{PAGENO}|'.date(DATE_RFC822)); // Add a 
 					$mail->ContentType = 'text/html; charset=utf-8\r\n';
 					$mail->From        = 'chrispinethesim@gmail.com';
 					$mail->FromName    = 'Quavatel App';
-					$mail->AddAddress("john.otaalo@strathmore.edu", "Chrispine Otaalo");
+					$mail->AddAddress("cherotichlorna566@gmail.com", "Lorna Cherotich");
 					$mail->AddStringAttachment($content,'chrispine.pdf','base64','application/pdf');
 					$mail->isHTML( TRUE );
 					$mail->Body = '<h1>Testing</h1>';
