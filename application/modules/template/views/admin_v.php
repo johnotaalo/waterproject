@@ -23,6 +23,8 @@
 
 	<link rel="stylesheet" type="text/css" href="<?php echo $this->config->item('assets_url'); ?>plugins/datepicker/datepicker3.css">
 	<link rel="stylesheet" type="text/css" href="<?php echo $this->config->item('assets_url'); ?>custom/custom.css">
+
+	<script src="<?php echo $this->config->item('assets_url'); ?>plugins/jQuery/jQuery-2.2.0.min.js"></script>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 	<div class="wrapper">
@@ -182,7 +184,6 @@
 		<div class="control-sidebar-bg"></div>
 	</div>
 	<!-- jQuery 2.2.0 -->
-	<script src="<?php echo $this->config->item('assets_url'); ?>plugins/jQuery/jQuery-2.2.0.min.js"></script>
 	<!-- Bootstrap 3.3.6 -->
 	<script src="<?php echo $this->config->item('assets_url'); ?>bootstrap/js/bootstrap.min.js"></script>
 	<!-- SlimScroll -->
