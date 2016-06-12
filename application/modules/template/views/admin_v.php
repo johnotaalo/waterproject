@@ -16,6 +16,12 @@
 	<!-- AdminLTE Skins. Choose a skin from the css/skins
 	folder instead of downloading all of them to reduce the load. -->
 	<link rel="stylesheet" href="<?php echo $this->config->item('assets_url'); ?>dist/css/skins/_all-skins.min.css">
+
+	<link rel="stylesheet" type="text/css" href="<?php echo $this->config->item('assets_url'); ?>plugins/datatables/jquery.dataTables.min.css">
+	<link rel="stylesheet" type="text/css" href="<?php echo $this->config->item('assets_url'); ?>plugins/datatables/dataTables.bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="<?php echo $this->config->item('assets_url'); ?>plugins/sweetalert/dist/sweetalert.css">
+
+	<link rel="stylesheet" type="text/css" href="<?php echo $this->config->item('assets_url'); ?>plugins/datepicker/datepicker3.css">
 	<link rel="stylesheet" type="text/css" href="<?php echo $this->config->item('assets_url'); ?>custom/custom.css">
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
@@ -152,11 +158,13 @@
 
 			<!-- Main content -->
 			<section class="content">
-				<?php if(isset($content_view)) { ?>
-					<?php $this->load->view($content_view); ?>
-				<?php } else { ?>
-					<?php $this->load->view('template/partials/no-page'); ?>
-				<?php } ?>
+				<div class = "row">
+					<?php if(isset($content_view)) { ?>
+						<?php $this->load->view($content_view); ?>
+					<?php } else { ?>
+						<?php $this->load->view('template/partials/no-page'); ?>
+					<?php } ?>
+				</div>
 			</section>
 			<!-- /.content -->
 		</div>
@@ -181,9 +189,16 @@
 	<script src="<?php echo $this->config->item('assets_url'); ?>plugins/slimScroll/jquery.slimscroll.min.js"></script>
 	<!-- FastClick -->
 	<script src="<?php echo $this->config->item('assets_url'); ?>plugins/fastclick/fastclick.js"></script>
+
+	<script src="<?php echo $this->config->item('assets_url'); ?>plugins/datatables/jquery.dataTables.min.js"></script>
+	<script src="<?php echo $this->config->item('assets_url'); ?>plugins/datatables/dataTables.bootstrap.min.js"></script>
+	<script src="<?php echo $this->config->item('assets_url'); ?>plugins/sweetalert/dist/sweetalert.min.js"></script>
+	<script src="<?php echo $this->config->item('assets_url'); ?>plugins/datepicker/bootstrap-datepicker.js"></script>
 	<!-- AdminLTE App -->
 	<script src="<?php echo $this->config->item('assets_url'); ?>dist/js/app.min.js"></script>
 	<!-- AdminLTE for demo purposes -->
 	<script src="<?php echo $this->config->item('assets_url'); ?>dist/js/demo.js"></script>
+
+	<script src="<?php echo $this->config->item('assets_url'); ?>custom/custom.js"></script>
 </body>
 </html>
