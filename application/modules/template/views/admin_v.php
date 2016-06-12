@@ -25,6 +25,10 @@
 	<link rel="stylesheet" type="text/css" href="<?php echo $this->config->item('assets_url'); ?>custom/custom.css">
 
 	<script src="<?php echo $this->config->item('assets_url'); ?>plugins/jQuery/jQuery-2.2.0.min.js"></script>
+	<script src="<?php echo $this->config->item('assets_url'); ?>bootstrap/js/bootstrap.min.js"></script>
+	<script>
+		var base_url = '<?php echo base_url(); ?>';
+	</script>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 	<div class="wrapper">
@@ -181,11 +185,31 @@
 			<!-- Default to the left -->
 			<strong>Copyright &copy; <?php echo date("Y");?> <a href="#">Enkoru Enkare Water</a>.</strong> All rights reserved.
 		</footer>
+
+		<div class="modal">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">×</span></button>
+						<h4 class="modal-title">Default Modal</h4>
+					</div>
+					<div class="modal-body">
+						<p>One fine body…</p>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+						<button type="button" class="btn btn-primary">Save changes</button>
+					</div>
+				</div>
+				<!-- /.modal-content -->
+			</div>
+			<!-- /.modal-dialog -->
+		</div>
 		<div class="control-sidebar-bg"></div>
 	</div>
 	<!-- jQuery 2.2.0 -->
 	<!-- Bootstrap 3.3.6 -->
-	<script src="<?php echo $this->config->item('assets_url'); ?>bootstrap/js/bootstrap.min.js"></script>
 	<!-- SlimScroll -->
 	<script src="<?php echo $this->config->item('assets_url'); ?>plugins/slimScroll/jquery.slimscroll.min.js"></script>
 	<!-- FastClick -->

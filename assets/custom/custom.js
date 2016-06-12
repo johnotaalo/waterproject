@@ -1,5 +1,7 @@
 $(document).ready(function(){
-	$('.datatable').DataTable();
+	$('.datatable').DataTable({
+		fixedHeader: true
+	});
 
 	$('.activation').click(function(e){
 		e.preventDefault();
@@ -33,6 +35,27 @@ $(document).ready(function(){
 			format: "yyyy", 
 			viewMode: "years", 
 			minViewMode: "years"
+		});
+	}
+
+	$('.datepicker').datepicker();
+
+	if ($('.btn-information')[0])
+	{
+		$('.btn-information').click(function(){
+			customer_id = $(this).attr('data-id');
+			$('.modal .modal-body').load(base_url + 'Billing/customerData/json/' + billing_id + '/' + customer_id, function(data){
+				$('.modal .modal-body').html("");
+				console.log(data);
+				obj = jQuery.parseJSON(data);
+				$('.modal .modal-body').html(obj.page);
+				$('.datepicker').datepicker({
+					endDate: '+0d',
+					autoclose: true,
+					format: 'dd-mm-yyyy',
+				});
+			});
+			$('.modal').modal();
 		});
 	}
 });
