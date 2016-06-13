@@ -78,5 +78,4 @@ class M_Billing extends MY_Model
 	{
 		$this->db->insert('customer_billing', $data);
 	}
-
 }

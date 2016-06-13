@@ -17,7 +17,7 @@
 	folder instead of downloading all of them to reduce the load. -->
 	<link rel="stylesheet" href="<?php echo $this->config->item('assets_url'); ?>dist/css/skins/_all-skins.min.css">
 
-	<link rel="stylesheet" type="text/css" href="<?php echo $this->config->item('assets_url'); ?>plugins/datatables/jquery.dataTables.min.css">
+	<!-- <link rel="stylesheet" type="text/css" href="<?php echo $this->config->item('assets_url'); ?>plugins/datatables/jquery.dataTables.min.css"> -->
 	<link rel="stylesheet" type="text/css" href="<?php echo $this->config->item('assets_url'); ?>plugins/datatables/dataTables.bootstrap.css">
 	<link rel="stylesheet" type="text/css" href="<?php echo $this->config->item('assets_url'); ?>plugins/sweetalert/dist/sweetalert.css">
 
@@ -138,6 +138,7 @@
 					<li class="active"><a href="#"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
 					<li><a href="<?php echo base_url(); ?>Customer"><i class="fa fa-users"></i> <span>Customers</span></a></li>
 					<li><a href="<?php echo base_url(); ?>Billing"><i class="fa fa-credit-card"></i> <span>Billing</span></a></li>
+					<li><a href="<?php echo base_url(); ?>Billing/Payments"><i class="fa fa-money"></i> <span>Payments</span></a></li>
 					<li><a href="<?php echo base_url(); ?>Customer"><i class="fa fa-user-secret"></i> <span>Account</span></a></li>
 					<li><a href="<?php echo base_url(); ?>Customer"><i class="fa ion-log-out"></i> <span>Sign Out</span></a></li>
 				</ul>

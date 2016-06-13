@@ -61,4 +61,21 @@ $(document).ready(function(){
 			$('.modal').modal();
 		});
 	}
+
+	if($('.call-modal')[0])
+	{
+		$('.call-modal').click(function(event){
+			event.preventDefault();
+
+			url = $(this).attr('href');
+
+			$('.modal .modal-body').load(url, function(data){
+				obj = jQuery.parseJSON(data);
+				$('.modal .modal-body').html(obj.page);
+				$('.modal .modal-title').html(obj.title);
+			});
+
+			$('.modal').modal();
+		});
+	}
 });
