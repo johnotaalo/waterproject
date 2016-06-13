@@ -200,7 +200,7 @@
 					</div>
 					<div class="modal-footer">
 						<a type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</a>
-						<button type="button" class="btn btn-primary">Save changes</button>
+						<button type="button" class="btn btn-primary" id = "save_changes">Save changes</button>
 					</div>
 				</div>
 				<!-- /.modal-content -->

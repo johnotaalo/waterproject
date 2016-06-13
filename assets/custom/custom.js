@@ -40,7 +40,7 @@ $(document).ready(function(){
 
 	$('.datepicker').datepicker();
 
-	$('.modal button').click(function(){
+	$('.modal button#save_changes').click(function(){
 		$('.modal form').submit();
 	});
 	if ($('.btn-information')[0])
@@ -76,6 +76,25 @@ $(document).ready(function(){
 			});
 
 			$('.modal').modal();
+		});
+	}
+
+	if ($('#addnewmonth')[0])
+	{
+		$('#addnewmonth').click(function(e){
+			e.preventDefault();
+			$('.modal .modal-body').load(base_url  + "Billing/addBillingMonth", function(data){
+				obj = jQuery.parseJSON(data);
+				$('.modal .modal-body').html(obj.page);
+				$('.modal .modal-title').html(obj.title);
+				$('.year-picker').datepicker({
+					format: "yyyy", 
+					viewMode: "years", 
+					minViewMode: "years",
+					autoclose: true
+				});
+				$('.modal').modal();
+			});
 		});
 	}
 });

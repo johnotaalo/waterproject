@@ -1,4 +1,4 @@
-<form method = "POST" action = "<?php echo base_url(); ?>Billing/Payment/addPayment/<?php echo $customerData->id; ?>">
+<form method = "POST" action = "<?php echo base_url(); ?>Billing/Payments/addPayment/<?php echo $customerData->id; ?>">
 	
 	<div class = 'box box-solid'>
 		<div class = "box-header with-border">
@@ -45,6 +45,6 @@
 
 	<div class = "form-group">
 		<label>Comment</label>
-		<textarea class = "form-control" rows = "4"></textarea>
+		<textarea class = "form-control" rows = "4" name = "comment"></textarea>
 	</div>
 </form>

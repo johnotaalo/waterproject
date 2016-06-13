@@ -5,7 +5,7 @@ class Payments extends MY_Controller
 	function __construct()
 	{
 		parent::__construct();
-		$this->load->model('M_Payments');
+		$this->load->model(['M_Payments', 'M_Billing']);
 	}
 
 	function index()
@@ -56,21 +56,28 @@ class Payments extends MY_Controller
 		return $customer_payments_data_table;
 	}
 
-	function History($customer_id)
-	{
-
-	}
-
 	function addPayment($customer_id)
 	{
 		$this->load->module('customer');
-		$customerDetails = $this->M_Customer->getCustomerById($customer_id);
-		$data['customerData'] = $customerDetails;
-		$data['payment_for_select'] = $this->create_payment_for_select();
-		$return_data['title'] = "Add Payment for {$customerDetails->firstname}, {$customerDetails->othernames}";
-		$return_data['page'] = $this->load->view('billing/add_payment_v', $data, true);
+		if ($this->input->post()) {
+			$data['comment'] = $this->input->post('comment');
+			$data['payment_for'] = $this->input->post('payment_for');
+			$data['amount_paid'] = $this->input->post('amount');
+			$data['customer_id'] = $customer_id;
 
-		echo json_encode($return_data);
+			$this->M_Payments->addPayment($data);
+
+			redirect(base_url() . 'Billing/Payments/');
+		}
+		else{
+			$customerDetails = $this->M_Customer->getCustomerById($customer_id);
+			$data['customerData'] = $customerDetails;
+			$data['payment_for_select'] = $this->create_payment_for_select();
+			$return_data['title'] = "Add Payment for {$customerDetails->firstname}, {$customerDetails->othernames}";
+			$return_data['page'] = $this->load->view('billing/add_payment_v', $data, true);
+
+			echo json_encode($return_data);
+		}
 	}
 
 	function create_payment_for_select()
@@ -85,5 +92,58 @@ class Payments extends MY_Controller
 		}
 
 		return $payment_for_select_string;
+	}
+
+	function History($customer_id)
+	{
+		$this->load->module('customer');
+		$data['title'] = "Customer Transaction History";
+		$data['customer_data'] = $this->M_Customer->getCustomerById($customer_id);
+		$data['bills'] = $this->generateBillingInformation($customer_id);
+		$data['payments'] = $this->generatePaymentInformation($customer_id);
+
+		$data['content_view'] = "billing/history_v";
+		$this->template->call_admin_template($data);
+	}
+
+	function generateBillingInformation($customer_id)
+	{
+		$customer_billing_information = $this->M_Billing->getCustomerBillingInformation($customer_id);
+		$customer_billing_table = "";
+		if ($customer_billing_information) {
+			$counter = 1;
+			foreach ($customer_billing_information as $info) {
+				$dateObj = DateTime::createFromFormat('!m', $info->month);
+				$monthName = $dateObj->format('F');
+				$customer_billing_table .= "<tr>";
+				$customer_billing_table .= "<td>{$counter}.</td>";
+				$customer_billing_table .= "<td>{$info->year}, {$monthName}</td>";
+				$customer_billing_table .= "<td> Ksh. ".number_format($info->amount, 2)."</td>";
+				$customer_billing_table .= "</tr>";
+				$counter++;
+			}
+		}
+
+		return $customer_billing_table;
+	}
+
+	function generatePaymentInformation($customer_id)
+	{
+		$customer_payment_information = $this->M_Payments->getPaymentInformation($customer_id);
+		$customer_payment_table = "";
+
+		if ($customer_payment_information) {
+			$counter = 1;
+			foreach ($customer_payment_information as $info) {
+				$customer_payment_table .= "<tr>";
+				$customer_payment_table .= "<td>{$counter}.</td>";
+				$customer_payment_table .= "<td>".date('d-m-Y', strtotime($info->paid_on))."</td>";
+				$customer_payment_table .= "<td>Ksh. ".number_format($info->amount_paid)."</td>";
+				$customer_payment_table .= "</tr>";
+				$counter++;
+			}
+		}
+
+		return $customer_payment_table;
 	}
 }

@@ -132,4 +132,38 @@ class Billing extends MY_Controller
 		redirect(base_url() . "Billing/Information/{$billing_id}");
 
 	}
+
+	function addBillingMonth()
+	{
+		if ($this->input->post()) {
+
+			$exists = $this->M_Billing->exists($this->input->post('year'), $this->input->post('month'));
+			if(!$exists)
+			{
+				$post_data['month'] = $this->input->post('month');
+				$post_data['year'] = $this->input->post('year');
+				$post_data['billcheckingdate'] = $this->input->post('year') . "-" . $this->input->post('month') . "-1";
+
+				$this->M_Billing->addBillingMonth($post_data);
+
+				$billing_id = $this->db->insert_id();
+
+				redirect(base_url() . "Billing/Information/{$billing_id}");
+			}
+			else
+			{
+				$this->session->set_flashdata('type', 'error');
+				$this->session->set_flashdata('message', 'The month you tried to enter already exists! Please try another year and month combination');
+				redirect(base_url() . 'Billing');
+			}
+		}
+		else
+		{
+			$modal_data['months'] = $this->month_select_box();
+			$data['page'] = $this->load->view("billing/add_billing_month_v", $modal_data, TRUE);
+			$data['title'] = "<i class = 'fa fa-calendar-plus-o'></i>&nbsp;Create a New Billing Month";
+
+			echo json_encode($data);
+		}
+	}
 }

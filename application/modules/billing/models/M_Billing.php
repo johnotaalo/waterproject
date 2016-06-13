@@ -78,4 +78,28 @@ class M_Billing extends MY_Model
 	{
 		$this->db->insert('customer_billing', $data);
 	}
+
+	function getCustomerBillingInformation($customer_id)
+	{
+		$this->db->where(['customer_id' => $customer_id]);
+
+		$this->db->from('customer_billing');
+		$this->db->join('billing', 'billing.id = customer_billing.billing_id');
+		$query = $this->db->get();
+
+		return $query->result();
+	}
+
+	function exists($year, $month)
+	{
+		$this->db->where(['year' => $year, 'month' => $month]);
+		$query = $this->db->get('billing');
+
+		return $query->row();
+	}
+
+	function addBillingMonth($post_data)
+	{
+		$this->db->insert('billing', $post_data);
+	}
 }

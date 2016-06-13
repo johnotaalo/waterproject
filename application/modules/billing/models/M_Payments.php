@@ -35,4 +35,23 @@ class M_Payments extends MY_Model
 
 		return $query->result();
 	}
+
+	function addPayment($data)
+	{
+		$this->db->insert('customer_payment', $data);
+	}
+
+	function getPaymentInformation($customer_id)
+	{
+		$this->db->where('customer_id', $customer_id);
+		$this->db->order_by('paid_on', 'DESC');
+		$this->db->from('customer_payment');
+		$this->db->join('payment_for_types', 'customer_payment.payment_for = payment_for_types.id');
+
+		$query = $this->db->get();
+
+		return $query->result();
+
+
+	}
 }
