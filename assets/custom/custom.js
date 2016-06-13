@@ -40,15 +40,18 @@ $(document).ready(function(){
 
 	$('.datepicker').datepicker();
 
+	$('.modal button').click(function(){
+		$('.modal form').submit();
+	});
 	if ($('.btn-information')[0])
 	{
 		$('.btn-information').click(function(){
 			customer_id = $(this).attr('data-id');
 			$('.modal .modal-body').load(base_url + 'Billing/customerData/json/' + billing_id + '/' + customer_id, function(data){
 				$('.modal .modal-body').html("");
-				console.log(data);
 				obj = jQuery.parseJSON(data);
 				$('.modal .modal-body').html(obj.page);
+				$('.modal .modal-title').html(obj.title);
 				$('.datepicker').datepicker({
 					endDate: '+0d',
 					autoclose: true,

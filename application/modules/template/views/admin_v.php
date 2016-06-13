@@ -136,10 +136,10 @@
 					<li class="header">NAVIGATION MENU</li>
 					<!-- Optionally, you can add icons to the links -->
 					<li class="active"><a href="#"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
-					<li><a href="#"><i class="fa fa-users"></i> <span>Customers</span></a></li>
-					<li><a href="#"><i class="fa fa-credit-card"></i> <span>Billing</span></a></li>
-					<li><a href="#"><i class="fa fa-user-secret"></i> <span>Account</span></a></li>
-					<li><a href="#"><i class="fa ion-log-out"></i> <span>Sign Out</span></a></li>
+					<li><a href="<?php echo base_url(); ?>Customer"><i class="fa fa-users"></i> <span>Customers</span></a></li>
+					<li><a href="<?php echo base_url(); ?>Billing"><i class="fa fa-credit-card"></i> <span>Billing</span></a></li>
+					<li><a href="<?php echo base_url(); ?>Customer"><i class="fa fa-user-secret"></i> <span>Account</span></a></li>
+					<li><a href="<?php echo base_url(); ?>Customer"><i class="fa ion-log-out"></i> <span>Sign Out</span></a></li>
 				</ul>
 				<!-- /.sidebar-menu -->
 			</section>
@@ -198,7 +198,7 @@
 						<p>One fine body…</p>
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+						<a type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</a>
 						<button type="button" class="btn btn-primary">Save changes</button>
 					</div>
 				</div>

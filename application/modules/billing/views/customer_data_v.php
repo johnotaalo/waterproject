@@ -30,21 +30,21 @@
 	<div class="form-group">
 		<div class = 'input-group'>
 			<span class="input-group-addon">Meter Reading Date</span>
-			<input type = 'text' class = 'datepicker form-control' name = 'meter_reading_date' />
+			<input type = 'text' class = 'datepicker form-control' name = 'meter_reading_date' value = '<?= @($customerData->meter_reading_date) ? date('d-m-Y', strtotime($customerData->meter_reading_date)) : date('d-m-Y');?> '/>
 		</div>
 	</div>
 
 	<div class="form-group">
 		<div class = 'input-group'>
 			<span class="input-group-addon">Meter Reading</span>
-			<input type = 'text' class = 'form-control' name = 'meter_reading' />
+			<input type = 'text' class = 'form-control' name = 'meter_reading' value = '<?= @$customerData->meter_reading; ?>'/>
 		</div>
 	</div>
 
 	<div class = "form-group">
 		<div class = 'input-group'>
 			<span class="input-group-addon">Volume Used(m<sup>3</sup>)</span>
-			<input type = 'text' class = 'form-control' name = 'volume_used' />
+			<input type = 'text' class = 'form-control' name = 'water_used' value = '<?= @$customerData->water_used; ?>'/>
 		</div>
 	</div>
 </form>

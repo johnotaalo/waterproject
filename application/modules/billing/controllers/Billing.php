@@ -35,7 +35,7 @@ class Billing extends MY_Controller
 				$months_list .= '<tr>';
 				$months_list .= "<td>{$counter}</td>";
 				$months_list .= "<td>{$month->year}, {$monthName}</td>";
-				$months_list .= "<td>{$volume_for_the_month->water_used}</td>";
+				$months_list .= "<td class = 'text-center'>{$volume_for_the_month->water_used}</td>";
 				$months_list .= "<td><a href = '".base_url()."Billing/Information/{$month->id}' class = 'label label-primary'>Billing Information</a></td>";
 				$months_list .= '</tr>';
 				$counter++;
@@ -73,7 +73,8 @@ class Billing extends MY_Controller
 				$billing_information_table .= "<td>{$counter}</td>";
 				$billing_information_table .= "<td>{$value->firstname}, {$value->othernames}</td>";
 				$billing_information_table .= "<td>{$value->plotnumber}</td>";
-				$billing_information_table .= "<td>{$value->water_used}</td>";
+				$billing_information_table .= "<td>{$value->supply_location}</td>";
+				$billing_information_table .= "<td class = 'text-center'>{$value->water_used}</td>";
 				$billing_information_table .= "<td class = 'text-center'>";
 				if ($value->water_used != "") {
 					$billing_information_table .= "<a href = '#' class = 'btn btn-primary btn-sm btn-information' data-id = '{$value->id}'><i class = 'fa fa-pencil'></i>&nbsp;&nbsp;Edit</a>";
@@ -100,9 +101,35 @@ class Billing extends MY_Controller
 		$data['billing_id'] = $billing_id;
 		$data['customer_id'] = $customer_id;
 
+		$data['title'] = "Billing details for " . $data['customerData']->firstname . " " . $data['customerData']->othernames;
 		$data['page'] = $this->load->view('billing/customer_data_v', $data, TRUE);
 		$data['type'] = 'success';
 
 		echo json_encode($data);
+	}
+
+	function addBillingInformation($billing_id, $customer_id)
+	{
+		if ($this->input->post()) {
+			$exists = $this->M_Billing->getBiilingExistence($billing_id, $customer_id);
+
+			$data['meter_reading'] = $this->input->post('meter_reading');
+			$data['meter_reading_date'] = date('Y-m-d', strtotime($this->input->post('meter_reading_date')));
+			$data['water_used'] = $this->input->post('water_used');
+			$data['amount'] = $data['water_used'] * 100 + 50;
+			if ($exists) {
+				$this->M_Billing->updateBillingInformation($customer_id, $billing_id, $data);
+			}
+			else
+			{
+				$data['customer_id'] = $customer_id;
+				$data['billing_id'] = $billing_id;
+
+				$this->M_Billing->addBillingInformation($data);
+			}
+		}
+		
+		redirect(base_url() . "Billing/Information/{$billing_id}");
+
 	}
 }

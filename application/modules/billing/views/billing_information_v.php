@@ -12,6 +12,7 @@
 					<th>No.</th>
 					<th>Customer Name</th>
 					<th>Plot Number</th>
+					<th>Supply Location</th>
 					<th>Volume Used(M<sup>3</sup>)</th>
 					<th>Action</th>
 				</thead>

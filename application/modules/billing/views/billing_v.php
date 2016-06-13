@@ -9,8 +9,8 @@
 				<table class = 'table table-bordered table-hover datatable'>
 					<thead>
 						<th>#</th>
-						<th>Months</th>
-						<th>Volume Recorded(M<sup>3</sup>)</th>
+						<th style = "width: 40%;">Months</th>
+						<th class = 'text-center'>Volume Recorded(M<sup>3</sup>)</th>
 						<th>Action</th>
 					</thead>
 					<tbody>
