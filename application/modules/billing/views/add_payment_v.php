@@ -42,4 +42,9 @@
 			<input type = 'text' class = 'form-control' name = 'amount'/>
 		</div>
 	</div>
+
+	<div class = "form-group">
+		<label>Comment</label>
+		<textarea class = "form-control" rows = "4"></textarea>
+	</div>
 </form>
