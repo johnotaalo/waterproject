@@ -102,4 +102,38 @@ class M_Billing extends MY_Model
 	{
 		$this->db->insert('billing', $post_data);
 	}
+
+	function get_customers_with_monthly_bill($billing_id)
+	{
+		$sql = "SELECT id FROM customer WHERE id IN (SELECT customer_id FROM customer_billing WHERE billing_id = {$billing_id})";
+
+		return $this->db->query($sql)->result();
+	}
+
+	function getCustomersCarriedForward($customer_id, $billing_id)
+	{
+		$query = $this->db->query("SELECT SUM(amount) as carried_forward FROM customer_billing WHERE customer_id = {$customer_id} AND billing_id != {$billing_id}");
+
+		return $query->row();
+	}
+
+	function get_month_payment_details($customer_id, $billing_id)
+	{
+		$query = $this->db->query("SELECT b.year, b.month, cb.water_used, cb.meter_reading, cb.meter_reading_date, cb.amount FROM customer_billing cb
+			JOIN billing b ON b.id = cb.billing_id
+			WHERE cb.customer_id = {$customer_id} AND b.id = {$billing_id}");
+
+		return $query->row();
+	}
+
+	function getPreviousData($customer_id, $billing_id)
+	{
+		$query = $this->db->query("SELECT cb.meter_reading_date, cb.meter_reading FROM customer_billing cb
+			JOIN billing b ON b.id = cb.billing_id
+			WHERE cb.customer_id = {$customer_id} AND b.id != $billing_id AND cb.meter_reading_date > b.billcheckingdate
+			ORDER BY b.billcheckingdate DESC
+			LIMIT 1");
+
+		return $query->result();
+	}
 }

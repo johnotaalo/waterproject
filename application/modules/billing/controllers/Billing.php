@@ -166,4 +166,39 @@ class Billing extends MY_Controller
 			echo json_encode($data);
 		}
 	}
+
+	function SendInvoices($billing_id)
+	{
+		$eligible_customers = $this->M_Billing->get_customers_with_monthly_bill($billing_id);
+
+		if ($eligible_customers) {
+			foreach ($eligible_customers as $customer) {
+				$this->send_invoice_to_customer($billing_id, $customer->id);
+			}
+		}
+	}
+
+
+	function send_invoice_to_customer($billing_id, $customer_id)
+	{
+		$this->load->module('customer');
+
+		$customer_details = $this->M_Customer->getCustomerById($customer_id);
+
+		$email = $customer_details->emailaddress;
+		$fullname = $customer_details->firstname . " " . $customer_details->othernames;
+
+		$carried_forward = $this->M_Billing->getCustomersCarriedForward($customer_id, $billing_id);
+
+		$carried_forward = ($carried_forward) ? $carried_forward->carried_forward : 0;
+
+		$month_billing_details = $this->M_Billing->get_month_payment_details($customer_id, $billing_id);
+
+		$dateObj = DateTime::createFromFormat('!m', $month_billing_details->month);
+		$monthName = $dateObj->format('F');
+
+		$previous_data = $this->M_Billing->getPreviousData($customer_id, $billing_id);
+
+		echo "<pre>";print_r($previous_data);die;
+	}
 }

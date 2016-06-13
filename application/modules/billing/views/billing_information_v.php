@@ -5,7 +5,8 @@
 			<h3 class = "box-title">Billing Information</h3>
 		</div>
 		<div class = "box-body">
-			<p>Viewing information for: <b><?php echo $month_details->year .', ' . $month_name; ?></b></p>
+			<p class = 'pull-left'>Viewing information for: <b><?php echo $month_details->year .', ' . $month_name; ?></b></p>
+			<a class = 'btn btn-warning btn-sm pull-right' href = "<?php echo base_url(); ?>Billing/SendInvoices"></a>
 
 			<table class="table table-bordered table-hover datatable">
 				<thead>
