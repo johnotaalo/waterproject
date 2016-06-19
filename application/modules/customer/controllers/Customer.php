@@ -12,7 +12,7 @@ class Customer extends MY_Controller
 	{
 		$data['title'] = "Customers page";
 		$data['customers_list'] = $this->getcustomerslist();
-		$data['content_view'] = "customer/customer_v";
+		$data['content_view'] = "Customer/customer_v";
 		$this->template->call_admin_template($data);
 	}
 
@@ -29,7 +29,7 @@ class Customer extends MY_Controller
 
 		}else{
 			$data['title'] = "Add a Customer";
-			$data['content_view'] = 'customer/add_customer_v';
+			$data['content_view'] = 'Customer/add_customer_v';
 			$this->template->call_admin_template($data);
 		}
 	}
@@ -116,7 +116,7 @@ class Customer extends MY_Controller
 
 				if ($customer) {
 					$data['customer_details'] = $customer;
-					$data['content_view'] = 'customer/add_customer_v';
+					$data['content_view'] = 'Customer/add_customer_v';
 					$data['title'] = "Editting Customer";
 					$data['page_header'] = "Editting: " . $customer->firstname . ", " . $customer->othernames;
 					$this->template->call_admin_template($data);

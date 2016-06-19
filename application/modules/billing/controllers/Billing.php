@@ -102,7 +102,7 @@ class Billing extends MY_Controller
 		$data['customer_id'] = $customer_id;
 
 		$data['title'] = "Billing details for " . $data['customerData']->firstname . " " . $data['customerData']->othernames;
-		$data['page'] = $this->load->view('billing/customer_data_v', $data, TRUE);
+		$data['page'] = $this->load->view('Billing/customer_data_v', $data, TRUE);
 		$data['type'] = 'success';
 
 		echo json_encode($data);
@@ -160,7 +160,7 @@ class Billing extends MY_Controller
 		else
 		{
 			$modal_data['months'] = $this->month_select_box();
-			$data['page'] = $this->load->view("billing/add_billing_month_v", $modal_data, TRUE);
+			$data['page'] = $this->load->view("Billing/add_billing_month_v", $modal_data, TRUE);
 			$data['title'] = "<i class = 'fa fa-calendar-plus-o'></i>&nbsp;Create a New Billing Month";
 
 			echo json_encode($data);

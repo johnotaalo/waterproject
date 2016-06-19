@@ -16,7 +16,7 @@ class Payments extends MY_Controller
 	function data()
 	{
 		$data['customer_payments_data_table'] = $this->create_customer_payments_data_table();
-		$data['content_view'] = 'billing/payments_v';
+		$data['content_view'] = 'Billing/payments_v';
 		$data['title'] = "Customer Payments";
 
 		$this->template->call_admin_template($data);
@@ -24,7 +24,7 @@ class Payments extends MY_Controller
 
 	function create_customer_payments_data_table()
 	{
-		$this->load->module('customer');
+		$this->load->module('Customer');
 
 		$customers = $this->M_Customer->getCustomers();
 
@@ -58,7 +58,7 @@ class Payments extends MY_Controller
 
 	function addPayment($customer_id)
 	{
-		$this->load->module('customer');
+		$this->load->module('Customer');
 		if ($this->input->post()) {
 			$data['comment'] = $this->input->post('comment');
 			$data['payment_for'] = $this->input->post('payment_for');
@@ -74,7 +74,7 @@ class Payments extends MY_Controller
 			$data['customerData'] = $customerDetails;
 			$data['payment_for_select'] = $this->create_payment_for_select();
 			$return_data['title'] = "Add Payment for {$customerDetails->firstname}, {$customerDetails->othernames}";
-			$return_data['page'] = $this->load->view('billing/add_payment_v', $data, true);
+			$return_data['page'] = $this->load->view('Billing/add_payment_v', $data, true);
 
 			echo json_encode($return_data);
 		}
@@ -96,13 +96,13 @@ class Payments extends MY_Controller
 
 	function History($customer_id)
 	{
-		$this->load->module('customer');
+		$this->load->module('Customer');
 		$data['title'] = "Customer Transaction History";
 		$data['customer_data'] = $this->M_Customer->getCustomerById($customer_id);
 		$data['bills'] = $this->generateBillingInformation($customer_id);
 		$data['payments'] = $this->generatePaymentInformation($customer_id);
 
-		$data['content_view'] = "billing/history_v";
+		$data['content_view'] = "Billing/history_v";
 		$this->template->call_admin_template($data);
 	}
 
