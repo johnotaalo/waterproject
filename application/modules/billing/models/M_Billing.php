@@ -112,7 +112,7 @@ class M_Billing extends MY_Model
 
 	function getCustomersCarriedForward($customer_id, $billing_id)
 	{
-		$query = $this->db->query("SELECT SUM(amount) as carried_forward FROM customer_billing WHERE customer_id = {$customer_id} AND billing_id != {$billing_id}");
+		$query = $this->db->query("SELECT SUM(amount) - (SELECT SUM(amount_paid) FROM customer_payment WHERE customer_id = 1) as carried_forward FROM customer_billing WHERE customer_id = {$customer_id} AND billing_id != {$billing_id}");
 
 		return $query->row();
 	}
@@ -134,6 +134,6 @@ class M_Billing extends MY_Model
 			ORDER BY b.billcheckingdate DESC
 			LIMIT 1");
 
-		return $query->result();
+		return $query->row();
 	}
 }

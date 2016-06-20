@@ -181,7 +181,7 @@ class Billing extends MY_Controller
 
 	function send_invoice_to_customer($billing_id, $customer_id)
 	{
-		$this->load->module('customer');
+		$this->load->module('Customer');
 
 		$customer_details = $this->M_Customer->getCustomerById($customer_id);
 
@@ -192,6 +192,8 @@ class Billing extends MY_Controller
 
 		$carried_forward = ($carried_forward) ? $carried_forward->carried_forward : 0;
 
+		// echo "<pre>";print_r($carried_forward);die;
+
 		$month_billing_details = $this->M_Billing->get_month_payment_details($customer_id, $billing_id);
 
 		$dateObj = DateTime::createFromFormat('!m', $month_billing_details->month);
@@ -199,6 +201,19 @@ class Billing extends MY_Controller
 
 		$previous_data = $this->M_Billing->getPreviousData($customer_id, $billing_id);
 
-		echo "<pre>";print_r($previous_data);die;
+		$data['current'] = $month_billing_details;
+		$data['previous'] = $previous_data;
+		$data['customer'] = $customer_details;
+		$data['billing_details'] = $this->M_Billing->getBiilingExistence($billing_id, $customer_id);
+		$data['billing_month'] = (object)['year' => $month_billing_details->year, 'month' => $monthName];
+		$data['carried_forward'] = $carried_forward;
+
+		$data['total_to_be_paid'] = $month_billing_details->amount + $carried_forward;
+
+		$html = $this->load->view('template/pdf/invoice', $data, TRUE);
+
+		$this->load->module('Export');
+
+		$this->export->pdf($html, $data, ['email' => $email, 'Name' => $fullname]);
 	}
 }

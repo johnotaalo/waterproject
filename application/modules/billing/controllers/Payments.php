@@ -43,7 +43,7 @@ class Payments extends MY_Controller
 				$total_amount_paid = $this->M_Payments->getTotalAmountPaidByCustomer($customer->id);
 				$total_amount_charged = $this->M_Payments->getTotalAmountChargedByCustomer($customer->id);
 
-				$total_amount_due =$total_amount_charged->amount - $total_amount_paid->amount_paid;
+				$total_amount_due = $total_amount_charged->amount - $total_amount_paid->amount_paid;
 
 				$customer_payments_data_table .= "<td>{$total_amount_due}</td>";
 
