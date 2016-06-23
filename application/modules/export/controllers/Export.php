@@ -25,9 +25,9 @@ class Export extends MY_Controller
 					}
 					$pdf->WriteHTML($stylesheet,1);
 					$pdf->WriteHTML($html, 2); // write the HTML into the PDF
-					$content = $pdf->Output($pdfFilePath, 'S'); // save to file because we can
+					$content = $pdf->Output($pdfFilePath); // save to file because we can
 					// $content = chunk_split(base64_encode($content));
-
+					return;
 					$this->load->library('Mailer');
 					$mail = new PHPMailer();
 

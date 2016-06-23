@@ -24,6 +24,10 @@
 							<th>Email Address</th>
 							<td><?= @$customer_data->emailaddress; ?></td>
 						</tr>
+						<tr>
+							<th>Total Amount Due</th>
+							<td>Ksh. <?= @number_format($total_amount_due, 2); ?></td>
+						</tr>
 					</table>
 				</div>
 				<div class = "col-md-6">

@@ -77,14 +77,12 @@ class Billing extends MY_Controller
 				$billing_information_table .= "<td class = 'text-center'>{$value->water_used}</td>";
 				$billing_information_table .= "<td class = 'text-center'>";
 				if ($value->water_used != "") {
-					$billing_information_table .= "<a href = '#' class = 'btn btn-primary btn-sm btn-information' data-id = '{$value->id}'><i class = 'fa fa-pencil'></i>&nbsp;&nbsp;Edit</a>";
+					$billing_information_table .= "<a href = '#' class = 'btn btn-primary btn-sm btn-information' data-id = '{$value->id}'><i class = 'fa fa-pencil'></i>&nbsp;&nbsp;Edit</a>&nbsp;&nbsp;<a href = '".base_url()."Billing/send_invoice_to_customer/{$billing_id}/{$value->id}' class = 'btn btn-warning btn-sm' target = '_blank'><i class = 'fa fa-envelope-o'></i>&nbsp;&nbsp;View Invoice</a>";
 				}
 				else
 				{
 					$billing_information_table .= "<a href = '#' class = 'btn btn-primary btn-sm btn-information' data-id = '{$value->id}'><i class = 'fa fa-plus'></i>&nbsp;&nbsp;Add</a>";
 				}
-
-				$billing_information_table .= "&nbsp;&nbsp;<a href = '#' class = 'btn btn-warning btn-sm'><i class = 'fa fa-envelope-o'></i>&nbsp;&nbsp;Email Invoice</a>";
 				$billing_information_table .= "</td>";
 				$billing_information_table .= '</tr>';
 
@@ -211,7 +209,6 @@ class Billing extends MY_Controller
 		$data['total_to_be_paid'] = $month_billing_details->amount + $carried_forward;
 
 		$html = $this->load->view('template/pdf/invoice', $data, TRUE);
-
 		$this->load->module('Export');
 
 		$this->export->pdf($html, $data, ['email' => $email, 'Name' => $fullname]);

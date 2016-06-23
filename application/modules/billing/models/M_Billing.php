@@ -38,7 +38,8 @@ class M_Billing extends MY_Model
 	function getBillingInformation($billing_id)
 	{
 		$sql = "SELECT c.*, cb.water_used FROM customer c
-		LEFT JOIN customer_billing cb ON cb.customer_id = c.id AND cb.billing_id = $billing_id";
+		LEFT JOIN customer_billing cb ON cb.customer_id = c.id AND cb.billing_id = $billing_id
+		WHERE c.is_active != -1";
 
 		$query = $this->db->query($sql);
 

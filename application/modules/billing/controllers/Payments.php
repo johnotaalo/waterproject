@@ -43,7 +43,7 @@ class Payments extends MY_Controller
 				$total_amount_paid = $this->M_Payments->getTotalAmountPaidByCustomer($customer->id);
 				$total_amount_charged = $this->M_Payments->getTotalAmountChargedByCustomer($customer->id);
 
-				$total_amount_due = $total_amount_charged->amount - $total_amount_paid->amount_paid;
+				$total_amount_due =$total_amount_charged->amount - $total_amount_paid->amount_paid;
 
 				$customer_payments_data_table .= "<td>{$total_amount_due}</td>";
 
@@ -101,6 +101,10 @@ class Payments extends MY_Controller
 		$data['customer_data'] = $this->M_Customer->getCustomerById($customer_id);
 		$data['bills'] = $this->generateBillingInformation($customer_id);
 		$data['payments'] = $this->generatePaymentInformation($customer_id);
+		$total_amount_paid = $this->M_Payments->getTotalAmountPaidByCustomer($customer_id);
+		$total_amount_charged = $this->M_Payments->getTotalAmountChargedByCustomer($customer_id);
+
+		$data['total_amount_due'] =$total_amount_charged->amount - $total_amount_paid->amount_paid;
 
 		$data['content_view'] = "Billing/history_v";
 		$this->template->call_admin_template($data);

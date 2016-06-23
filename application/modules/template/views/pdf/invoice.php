@@ -31,6 +31,24 @@
 					<div class="date">Due Date: <?php echo date('d/m/Y', strtotime($current->meter_reading_date . ' + 4 days')); ?></div>
 				</div>
 			</div>
+
+			<div class = "clearfix" style="margin-top: 15px;">
+				<table border="0" cellspacing="0" cellpadding="0">
+					<thead>
+						<tr>
+							<th class = "unit">Previous Meter Reading Date</th>
+							<th class = "">Previous Meter Reading</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td class = "unit" style="text-align: center; "><?php echo date('d/m/Y', strtotime($previous->meter_reading_date)); ?></td>
+							<td class = "qty" style="text-align: center;"><?php echo $previous->meter_reading; ?></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
 			<table border="0" cellspacing="0" cellpadding="0">
 				<thead>
 					<tr>
@@ -73,9 +91,24 @@
 				</tfoot>
 			</table>
 			<div id="thanks">Thank you!</div>
+			<footer>
+				Invoice was created on a computer and is valid without the signature and seal.
+			</footer>
+			<pagebreak />
 			<div id="notices">
 			<div>NOTICE:</div>
-			<div class="notice">A finance charge of 1.5% will be made on unpaid balances after 30 days.</div>
+			<div class="notice">
+				1. The applicants required to provide their own 127mm(1/2 inch)High density PVC piping from the main line to the premises
+				<br/>2. The applicant agrees to provide their own water meter secured in a LOCKABLE metal box and cemented to the ground
+				<br/>3. The recommended meter is the sensus metering system model 405s available from Davis and shirtliff ,Dundori road Nairobi
+				<br/>4. All due bills must be paid by the 5th day of the following month
+				<br/>5. water supply will be disconnected on the 6th day of the month
+				<br/>6. The applicant agrees to pay a reconnection fee of shs 500.00
+				<br/>7. The applicant agrees to report and repair all water leaks within their property
+				<br/>8. The applicant agrees not to install any water sucking devices or pumps which will deprive their neighbors and other consumers water
+				<br/>9. The applicant agrees NOT TO RESELL WATER OR DO IRRIGATION. Penalty will be immediate disconnection and any reconnection will be on a deposit of shs5000.00
+				<br/>10. Water mete standing charges :50.00/month
+			</div>
 			</div>
 		</main>
 		<footer>

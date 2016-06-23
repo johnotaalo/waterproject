@@ -7,6 +7,7 @@
 		<div class = "box-body">
 			<p class = 'pull-left'>Viewing information for: <b><?php echo $month_details->year .', ' . $month_name; ?></b></p>
 			<a class = 'btn btn-warning btn-sm pull-right' href = "<?php echo base_url(); ?>Billing/SendInvoices"></a>
+			<span class="clearfix"></span>
 
 			<table class="table table-bordered table-hover datatable">
 				<thead>
