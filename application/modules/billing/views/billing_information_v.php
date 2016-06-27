@@ -28,4 +28,8 @@
 
 <script type="text/javascript">
 	var billing_id = '<?php echo $billing_id;?>';
+
+	$('.modal input[type="text"]').on('click', function(){
+		alert('clicked');
+	});
 </script>

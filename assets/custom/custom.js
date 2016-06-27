@@ -41,7 +41,24 @@ $(document).ready(function(){
 	$('.datepicker').datepicker();
 
 	$('.modal button#save_changes').click(function(){
-		$('.modal form').submit();
+		if($('#add_customer_billing')[0])
+		{
+			volume_used = $('#volume_used').val();
+
+
+			if(volume_used == "")
+			{
+				$('#volume_used').parent().addClass('has-error');
+			}
+			else
+			{
+				$('.modal form').submit();
+			}
+		}
+		else
+		{
+			$('.modal form').submit();
+		}
 	});
 	if ($('.btn-information')[0])
 	{
@@ -56,6 +73,33 @@ $(document).ready(function(){
 					endDate: '+0d',
 					autoclose: true,
 					format: 'dd-mm-yyyy',
+				});
+				$('#current_reading').keyup(function(){
+					current = $('#current_reading').val();
+
+					current = parseInt(current);
+					
+					previous = parseInt($('#previous_reading').val());
+
+					volume_used = current - previous;
+
+					if(volume_used < 0)
+					{
+						$('#volume_used').parent().addClass('has-error');
+					}
+					else
+					{
+						if(!isNaN(volume_used))
+						{
+							$('#volume_used').parent().removeClass('has-error');
+							$('#volume_used').val(volume_used);
+						}
+						else
+						{
+							$('#volume_used').val("");
+						}
+					}
+
 				});
 			});
 			$('.modal').modal();
@@ -95,6 +139,16 @@ $(document).ready(function(){
 				});
 				$('.modal').modal();
 			});
+		});
+	}
+
+	if ($('.clearance'))
+	{
+		$('.clearance').click(function(e){
+			e.preventDefault();
+
+			id = $(this).attr('data-id');
+			console.log(id);
 		});
 	}
 });

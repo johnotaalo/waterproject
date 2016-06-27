@@ -1,4 +1,4 @@
-<form method = "POST" action = "<?php echo base_url(); ?>Billing/addBillingInformation/<?php echo $billing_id; ?>/<?php echo $customer_id?>">
+<form method = "POST" action = "<?php echo base_url(); ?>Billing/addBillingInformation/<?php echo $billing_id; ?>/<?php echo $customer_id?>" id = "add_customer_billing">
 	
 	<div class = 'box box-solid'>
 		<div class = "box-header with-border">
@@ -34,17 +34,31 @@
 		</div>
 	</div>
 
+	<div class = "form-group">
+		<div class = "input-group">
+			<span class = "input-group-addon">Previous Meter Reading Date</span>
+			<input type="text" class="form-control" value = "<?php echo date('d-m-Y', strtotime($previous_data->meter_reading_date)); ?>" disabled>
+		</div>
+	</div>
+
+	<div class = "form-group">
+		<div class = "input-group">
+			<span class = "input-group-addon">Previous Meter Reading</span>
+			<input type="text" id = "previous_reading" class="form-control" value = "<?php echo $previous_data->meter_reading; ?>" disabled>
+		</div>
+	</div>
+
 	<div class="form-group">
 		<div class = 'input-group'>
 			<span class="input-group-addon">Meter Reading</span>
-			<input type = 'text' class = 'form-control' name = 'meter_reading' value = '<?= @$customerData->meter_reading; ?>'/>
+			<input id = "current_reading" type = 'text' class = 'form-control' name = 'meter_reading' value = '<?= @$customerData->meter_reading; ?>'/>
 		</div>
 	</div>
 
 	<div class = "form-group">
 		<div class = 'input-group'>
 			<span class="input-group-addon">Volume Used(m<sup>3</sup>)</span>
-			<input type = 'text' class = 'form-control' name = 'water_used' value = '<?= @$customerData->water_used; ?>'/>
+			<input type = 'text' id = "volume_used" class = 'form-control' name = 'water_used' value = '<?= @$customerData->water_used; ?>' readonly/>
 		</div>
 	</div>
 </form>

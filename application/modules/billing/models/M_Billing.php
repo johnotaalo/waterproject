@@ -102,6 +102,8 @@ class M_Billing extends MY_Model
 	function addBillingMonth($post_data)
 	{
 		$this->db->insert('billing', $post_data);
+
+		return $this->db->insert_id();
 	}
 
 	function get_customers_with_monthly_bill($billing_id)
@@ -136,5 +138,51 @@ class M_Billing extends MY_Model
 			LIMIT 1");
 
 		return $query->row();
+	}
+
+	function getPreviousBillingData($billing_id, $customer_id)
+	{
+		$this->db->select_max('id');
+		$this->db->where('id <', $billing_id);
+
+		$query = $this->db->get('billing');
+
+		$id = $query->row();
+
+		if ($id) {
+			$this->db->where([
+					'billing_id' 	=>	$id->id,
+					'customer_id'	=>	$customer_id
+				]);
+
+			$query = $this->db->get('customer_billing');
+
+			return $query->row();
+		}
+		else
+		{
+			return FALSE;
+		}
+	}
+
+	function getCurrentBillingMonth()
+	{
+		$this->db->select_max('id');
+
+		$id = $this->db->get('billing')->row();
+
+		if ($id) {
+			$this->db->select('year, month');
+
+			$this->db->where('id', $id->id);
+
+			$result = $this->db->get('billing')->row();
+
+			return $result;
+		}
+		else
+		{
+			return FALSE;
+		}
 	}
 }

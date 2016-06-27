@@ -6,6 +6,8 @@ class Billing extends MY_Controller
 	{
 		parent::__construct();
 		$this->load->model('M_Billing');
+
+		$this->checkstartupdetails();
 	}
 
 	function index()
@@ -13,6 +15,19 @@ class Billing extends MY_Controller
 		redirect(base_url() . 'Billing/BillingMonths');
 	}
 
+	function checkstartupdetails()
+	{
+		$content = file_get_contents(CONFIGPATH . 'config.ini');
+		$content_obj = json_decode($content);
+
+		if (isset($content_obj->startup->year)) {
+			
+		}
+		else
+		{
+			redirect("Billing/StartUp/CreateStartupDetails");
+		}
+	}
 	function BillingMonths()
 	{
 		$data['title'] = "Billing Months";
@@ -77,7 +92,8 @@ class Billing extends MY_Controller
 				$billing_information_table .= "<td class = 'text-center'>{$value->water_used}</td>";
 				$billing_information_table .= "<td class = 'text-center'>";
 				if ($value->water_used != "") {
-					$billing_information_table .= "<a href = '#' class = 'btn btn-primary btn-sm btn-information' data-id = '{$value->id}'><i class = 'fa fa-pencil'></i>&nbsp;&nbsp;Edit</a>&nbsp;&nbsp;<a href = '".base_url()."Billing/send_invoice_to_customer/{$billing_id}/{$value->id}' class = 'btn btn-warning btn-sm' target = '_blank'><i class = 'fa fa-envelope-o'></i>&nbsp;&nbsp;View Invoice</a>";
+					$billing_information_table .= "<a href = '#' class = 'btn btn-primary btn-sm btn-information' data-id = '{$value->id}'><i class = 'fa fa-pencil'></i>&nbsp;&nbsp;Edit</a>&nbsp;&nbsp;<a href = '".base_url()."Billing/send_invoice_to_customer/{$billing_id}/{$value->id}' class = 'btn btn-default btn-sm' target = '_blank'><i class = 'fa fa-envelope-o'></i>&nbsp;&nbsp;View Invoice</a>
+						&nbsp;&nbsp;<a href = '#' class = 'btn btn-warning btn-sm clearance' data-id = '{$value->id}'><i class = 'fa fa-check'></i> Clear Bill</a>";
 				}
 				else
 				{
@@ -98,6 +114,7 @@ class Billing extends MY_Controller
 		$data['customerData'] = $this->M_Billing->getCustomerData($customer_id, $billing_id);
 		$data['billing_id'] = $billing_id;
 		$data['customer_id'] = $customer_id;
+		$data['previous_data'] = $this->M_Billing->getPreviousBillingData($billing_id, $customer_id);
 
 		$data['title'] = "Billing details for " . $data['customerData']->firstname . " " . $data['customerData']->othernames;
 		$data['page'] = $this->load->view('Billing/customer_data_v', $data, TRUE);
@@ -138,15 +155,26 @@ class Billing extends MY_Controller
 			$exists = $this->M_Billing->exists($this->input->post('year'), $this->input->post('month'));
 			if(!$exists)
 			{
-				$post_data['month'] = $this->input->post('month');
-				$post_data['year'] = $this->input->post('year');
-				$post_data['billcheckingdate'] = $this->input->post('year') . "-" . $this->input->post('month') . "-1";
+				$last_month = $this->M_Billing->getCurrentBillingMonth();
 
-				$this->M_Billing->addBillingMonth($post_data);
+				if ($last_month->year <= $this->input->post('year') && $last_month->month < $this->input->post('month')) {
+					$post_data['month'] = $this->input->post('month');
+					$post_data['year'] = $this->input->post('year');
+					$post_data['billcheckingdate'] = $this->input->post('year') . "-" . $this->input->post('month') . "-01";
 
-				$billing_id = $this->db->insert_id();
+					$this->M_Billing->addBillingMonth($post_data);
 
-				redirect(base_url() . "Billing/Information/{$billing_id}");
+					$billing_id = $this->db->insert_id();
+
+					redirect(base_url() . "Billing/Information/{$billing_id}");
+				}
+				else
+				{
+					$this->session->set_flashdata('type', 'error');
+					$this->session->set_flashdata('message', 'The month and year combination come before the current year. Make sure you choose the next month and try again');
+					redirect(base_url() . 'Billing');
+				}
+				
 			}
 			else
 			{
@@ -189,8 +217,6 @@ class Billing extends MY_Controller
 		$carried_forward = $this->M_Billing->getCustomersCarriedForward($customer_id, $billing_id);
 
 		$carried_forward = ($carried_forward) ? $carried_forward->carried_forward : 0;
-
-		// echo "<pre>";print_r($carried_forward);die;
 
 		$month_billing_details = $this->M_Billing->get_month_payment_details($customer_id, $billing_id);
 
