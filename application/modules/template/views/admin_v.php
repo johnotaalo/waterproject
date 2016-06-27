@@ -17,7 +17,7 @@
 	folder instead of downloading all of them to reduce the load. -->
 	<link rel="stylesheet" href="<?php echo $this->config->item('assets_url'); ?>dist/css/skins/_all-skins.min.css">
 
-	<link rel="stylesheet" type="text/css" href="<?php echo $this->config->item('assets_url'); ?>plugins/datatables/jquery.dataTables.min.css">
+	<!-- <link rel="stylesheet" type="text/css" href="<?php echo $this->config->item('assets_url'); ?>plugins/datatables/jquery.dataTables.min.css"> -->
 	<link rel="stylesheet" type="text/css" href="<?php echo $this->config->item('assets_url'); ?>plugins/datatables/dataTables.bootstrap.css">
 	<link rel="stylesheet" type="text/css" href="<?php echo $this->config->item('assets_url'); ?>plugins/sweetalert/dist/sweetalert.css">
 
@@ -25,6 +25,10 @@
 	<link rel="stylesheet" type="text/css" href="<?php echo $this->config->item('assets_url'); ?>custom/custom.css">
 
 	<script src="<?php echo $this->config->item('assets_url'); ?>plugins/jQuery/jQuery-2.2.0.min.js"></script>
+	<script src="<?php echo $this->config->item('assets_url'); ?>bootstrap/js/bootstrap.min.js"></script>
+	<script>
+		var base_url = '<?php echo base_url(); ?>';
+	</script>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 	<div class="wrapper">
@@ -132,10 +136,11 @@
 					<li class="header">NAVIGATION MENU</li>
 					<!-- Optionally, you can add icons to the links -->
 					<li class="active"><a href="#"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
-					<li><a href="#"><i class="fa fa-users"></i> <span>Customers</span></a></li>
-					<li><a href="#"><i class="fa fa-credit-card"></i> <span>Billing</span></a></li>
-					<li><a href="#"><i class="fa fa-user-secret"></i> <span>Account</span></a></li>
-					<li><a href="#"><i class="fa ion-log-out"></i> <span>Sign Out</span></a></li>
+					<li><a href="<?php echo base_url(); ?>Customer"><i class="fa fa-users"></i> <span>Customers</span></a></li>
+					<li><a href="<?php echo base_url(); ?>Billing"><i class="fa fa-credit-card"></i> <span>Billing</span></a></li>
+					<!-- <li><a href="<?php echo base_url(); ?>Billing/Payments"><i class="fa fa-money"></i> <span>Payments</span></a></li> -->
+					<li><a href="<?php echo base_url(); ?>Customer"><i class="fa fa-user-secret"></i> <span>Account</span></a></li>
+					<li><a href="<?php echo base_url(); ?>Customer"><i class="fa ion-log-out"></i> <span>Sign Out</span></a></li>
 				</ul>
 				<!-- /.sidebar-menu -->
 			</section>
@@ -181,11 +186,31 @@
 			<!-- Default to the left -->
 			<strong>Copyright &copy; <?php echo date("Y");?> <a href="#">Enkoru Enkare Water</a>.</strong> All rights reserved.
 		</footer>
+
+		<div class="modal">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">×</span></button>
+						<h4 class="modal-title">Default Modal</h4>
+					</div>
+					<div class="modal-body">
+						<p>One fine body…</p>
+					</div>
+					<div class="modal-footer">
+						<a type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</a>
+						<button type="button" class="btn btn-primary" id = "save_changes">Save changes</button>
+					</div>
+				</div>
+				<!-- /.modal-content -->
+			</div>
+			<!-- /.modal-dialog -->
+		</div>
 		<div class="control-sidebar-bg"></div>
 	</div>
 	<!-- jQuery 2.2.0 -->
 	<!-- Bootstrap 3.3.6 -->
-	<script src="<?php echo $this->config->item('assets_url'); ?>bootstrap/js/bootstrap.min.js"></script>
 	<!-- SlimScroll -->
 	<script src="<?php echo $this->config->item('assets_url'); ?>plugins/slimScroll/jquery.slimscroll.min.js"></script>
 	<!-- FastClick -->
