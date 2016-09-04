@@ -13,7 +13,11 @@ $desc=array (
 );
 $up=-75;
 $ut=50;
+<<<<<<< HEAD
 $ttffile='/home/airtimen/public_html/www.enkonguwater.com/application/third_party/mpdf/ttfonts/SourceSansPro-Regular.ttf';
+=======
+$ttffile='C:/xampp/htdocs/waterproject/application/third_party/mpdf/ttfonts/SourceSansPro-Regular.ttf';
+>>>>>>> 217e66f330893f9097dd86605d049ffee36ff4e7
 $TTCfontID='0';
 $originalsize=119080;
 $sip=false;

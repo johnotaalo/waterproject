@@ -25,9 +25,13 @@ class Customer extends MY_Controller
 		$data['title'] = "Customers page";
 
 		$data['customers_list'] = $this->getcustomerslist();
+<<<<<<< HEAD
 
 		$data['content_view'] = "Customer/customer_v";
 
+=======
+		$data['content_view'] = "Customer/customer_v";
+>>>>>>> 217e66f330893f9097dd86605d049ffee36ff4e7
 		$this->template->call_admin_template($data);
 
 	}
@@ -59,9 +63,13 @@ class Customer extends MY_Controller
 		}else{
 
 			$data['title'] = "Add a Customer";
+<<<<<<< HEAD
 
 			$data['content_view'] = 'Customer/add_customer_v';
 
+=======
+			$data['content_view'] = 'Customer/add_customer_v';
+>>>>>>> 217e66f330893f9097dd86605d049ffee36ff4e7
 			$this->template->call_admin_template($data);
 
 		}
@@ -113,9 +121,13 @@ class Customer extends MY_Controller
 				}
 
 				$customers_list .= "</td>";
+<<<<<<< HEAD
 
 				$customers_list .= "<td><a href = '".base_url()."Customer/billinginformation/{$customer->id}' class = 'label label-primary text-center'>Billing Information</a></td>";
 
+=======
+				$customers_list .= "<td><a href = '".base_url()."Customer/billinginformation/{$customer->id}' class = 'label label-primary text-center'>Billing Information</a></td>";
+>>>>>>> 217e66f330893f9097dd86605d049ffee36ff4e7
 				$customers_list .= "<td class = 'text-center'><a href = '".base_url()."Customer/editCustomer/{$customer->id}'><i class = 'fa fa-pencil'></i></a>&nbsp;|&nbsp;<a data-action = 'delete' class = 'activation' href = '".base_url()."Customer/activation/delete/{$customer->id}'><i class = 'fa fa-trash'></td>";
 
 				$customers_list .= "</tr>";
@@ -235,9 +247,13 @@ class Customer extends MY_Controller
 				if ($customer) {
 
 					$data['customer_details'] = $customer;
+<<<<<<< HEAD
 
 					$data['content_view'] = 'Customer/add_customer_v';
 
+=======
+					$data['content_view'] = 'Customer/add_customer_v';
+>>>>>>> 217e66f330893f9097dd86605d049ffee36ff4e7
 					$data['title'] = "Editting Customer";
 
 					$data['page_header'] = "Editting: " . $customer->firstname . ", " . $customer->othernames;
@@ -268,6 +284,7 @@ class Customer extends MY_Controller
 
 	}
 
+<<<<<<< HEAD
 
 
 	function billinginformation($customer_id)
@@ -470,4 +487,67 @@ class Customer extends MY_Controller
 		redirect(base_url() . 'Customer');
 	}
 
+=======
+	function billinginformation($customer_id)
+	{
+		$customer = $this->M_Customer->getCustomerById($customer_id);
+		if ($customer) {
+			$this->load->module("Billing");
+
+			$billing = $this->M_Billing->getBillingMonths();
+			$billing_table = "<tr><td colspan = '5'>There are no billing months yet. <a class = 'label label-success' href = '".base_url()."Billing'></a></td></tr>";
+			if ($billing) {
+				$billing_table = "";
+				$counter = 1;
+				foreach ($billing as $month) {
+					$dateObj = DateTime::createFromFormat('!m', $month->month);
+					$monthName = $dateObj->format('F');
+
+					$volume_used = $this->M_Customer->getCustomerMonthUsed($month->id, $customer_id);
+
+					$amount = ($volume_used) ? $volume_used->amount : "N/A";
+					if ($volume_used) {
+						$status = ($volume_used->paid == 1) ? "<a href = '#' class = 'text-green'>Paid</a>" : "<span class = 'text-red'>Not Paid</span>";
+						$cleared = ($volume_used->paid == 1) ? "<a href = '#' class = 'text-muted'>cleared</a>" : "<a href = '".base_url()."Customer/clear_bill/{$month->id}/{$customer_id}'>Clear Bill?</a>";
+					}
+					else
+					{
+						$status = "N/A";
+						$cleared = "N/A";
+					}
+					
+
+					$billing_table .= '<tr>';
+					$billing_table .= "<td>{$counter}</td>";
+					$billing_table .= "<td>{$month->year}, {$monthName}</td>";
+					$billing_table .= "<td>{$amount}</td>";
+					$billing_table .= "<td>{$status}</td>";
+					$billing_table .= "<td>{$cleared}</td>";
+					$billing_table .= '</tr>';
+					$counter++;
+				}
+			}
+
+			$data['total_due']		=	$this->M_Customer->getTotalDueByCustomer($customer_id);
+			$data['billing_table']	=	$billing_table;
+			$data['customer']		=	$customer;
+			$data['title']			=	"Billing Information for {$customer->firstname}";
+			$data['content_view']	=	'Customer/billing_v';
+
+			$this->template->call_admin_template($data);
+		}
+		else
+		{
+			die("There was an error getting this page");
+		}
+	}
+
+	function clear_bill($billing_id, $customer_id)
+	{
+		$cleared = $this->M_Customer->clearBill($billing_id, $customer_id);
+		if ($cleared) {
+			redirect('Customer/billinginformation/' . $customer_id);
+		}
+	}
+>>>>>>> 217e66f330893f9097dd86605d049ffee36ff4e7
 }

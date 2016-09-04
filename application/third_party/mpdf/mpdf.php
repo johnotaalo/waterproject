@@ -31369,6 +31369,125 @@ class mPDF
 				return false;
 			}
 		}
+<<<<<<< HEAD
+=======
+	}
+/*-- END ANNOTATIONS --*/
+
+	preg_match_all("/(<svg.*?<\/svg>)/si", $html, $svgi);
+	if (count($svgi[0])) { 
+		for($i=0;$i<count($svgi[0]);$i++) {
+			$file = _MPDF_TEMP_PATH.'_tempSVG'.RAND(1,10000).'_'.$i.'.svg';
+			//Save to local file
+			file_put_contents($file, $svgi[0][$i]);
+			$html = str_replace($svgi[0][$i], '<img src="'.$file.'" />', $html); 	// mPDF 5.5.18
+		}
+	}
+
+	//Remove javascript code from HTML (should not appear in the PDF file)
+	$html = preg_replace('/<script.*?<\/script>/is','',$html);
+
+	//Remove special comments
+	$html = preg_replace('/<!--mpdf/i','',$html);
+	$html = preg_replace('/mpdf-->/i','',$html);
+
+	//Remove comments from HTML (should not appear in the PDF file)
+	$html = preg_replace('/<!--.*?-->/s','',$html);
+
+	$html = preg_replace('/\f/','',$html); //replace formfeed by nothing
+	$html = preg_replace('/\r/','',$html); //replace carriage return by nothing
+
+	// Well formed XHTML end tags
+	$html = preg_replace('/<(br|hr)\/>/i',"<\\1 />",$html);
+	// Get rid of empty <thead></thead>
+	$html = preg_replace('/<thead>\s*<\/thead>/i','',$html);
+	$html = preg_replace('/<tfoot>\s*<\/tfoot>/i','',$html);
+	$html = preg_replace('/<table[^>]*>\s*<\/table>/i','',$html);
+	$html = preg_replace('/<tr>\s*<\/tr>/i','',$html);
+
+	// Remove spaces at end of table cells
+	$html = preg_replace("/[ \n\r]+<\/t(d|h)/",'</t\\1',$html);		// mPDF 5.5.09
+
+	$html = preg_replace("/[ ]*<dottab\s*[\/]*>[ ]*/",'<dottab />',$html);
+
+	// Concatenates any Substitute characters from symbols/dingbats
+	$html = str_replace('</tts><tts>','|',$html);
+	$html = str_replace('</ttz><ttz>','|',$html);
+	$html = str_replace('</tta><tta>','|',$html);
+
+	$html = preg_replace('/<br \/>\s*/is',"<br />",$html);
+
+	$html = preg_replace('/<wbr[ \/]*>\s*/is',"&#173;",$html);	// mPDF 5.6.04
+
+	// Preserve '\n's in content between the tags <pre> and </pre>
+	if (preg_match('/<pre/',$html)) {
+		$html_a = preg_split('/(\<\/?pre[^\>]*\>)/', $html, -1, 2);
+		$h = array();
+		$c=0;
+		foreach($html_a AS $s) {
+			if ($c>1 && preg_match('/^<\/pre/i',$s)) { $c--; $s=preg_replace('/<\/pre/i','</innerpre',$s); }
+			else if ($c>0 && preg_match('/^<pre/i',$s)) { $c++; $s=preg_replace('/<pre/i','<innerpre',$s); }
+			else if (preg_match('/^<pre/i',$s)) { $c++; }
+			else if (preg_match('/^<\/pre/i',$s)) { $c--; }
+			array_push($h, $s);
+		}
+		$html = implode("", $h);
+	}
+	$thereispre = preg_match_all('#<pre(.*?)>(.*?)</pre>#si',$html,$temp);
+	// Preserve '\n's in content between the tags <textarea> and </textarea>
+	$thereistextarea = preg_match_all('#<textarea(.*?)>(.*?)</textarea>#si',$html,$temp2);
+	$html = preg_replace('/[\n]/',' ',$html); //replace linefeed by spaces
+	$html = preg_replace('/[\t]/',' ',$html); //replace tabs by spaces
+
+	// Converts < to &lt; when not a tag
+	$html = preg_replace('/<([^!\/a-zA-Z])/i','&lt;\\1',$html);
+	$html = preg_replace("/[ ]+/",' ',$html);
+
+	$html = preg_replace('/\/li>\s+<\/(u|o)l/i','/li></\\1l',$html);
+	$html = preg_replace('/\/(u|o)l>\s+<\/li/i','/\\1l></li',$html);
+	$html = preg_replace('/\/li>\s+<\/(u|o)l/i','/li></\\1l',$html);
+	$html = preg_replace('/\/li>\s+<li/i','/li><li',$html);
+	$html = preg_replace('/<(u|o)l([^>]*)>[ ]+/i','<\\1l\\2>',$html);
+	$html = preg_replace('/[ ]+<(u|o)l/i','<\\1l',$html);
+
+	$iterator = 0;
+	while($thereispre) //Recover <pre attributes>content</pre>
+	{
+		// $temp[2][$iterator] = preg_replace("/^([^\n\t]*?)\t/me", "stripslashes('\\1') . str_repeat(' ',  ( $tabSpaces - (mb_strlen(stripslashes('\\1')) % $tabSpaces))  )",$temp[2][$iterator]);
+		
+		$temp[2][$iterator] = preg_replace('/\t/',str_repeat(" ",$tabSpaces),$temp[2][$iterator]);
+
+		$temp[2][$iterator] = preg_replace('/\n/',"<br />",$temp[2][$iterator]);
+		$temp[2][$iterator] = str_replace('\\',"\\\\",$temp[2][$iterator]);
+		$html = preg_replace('#<pre(.*?)>(.*?)</pre>#si','<erp'.$temp[1][$iterator].'>'.$temp[2][$iterator].'</erp>',$html,1);
+		$thereispre--;
+		$iterator++;
+	}
+	$iterator = 0;
+	while($thereistextarea) //Recover <textarea attributes>content</textarea>
+	{
+		$temp2[2][$iterator] = preg_replace('/\t/',str_repeat(" ",$tabSpaces),$temp2[2][$iterator]);
+		$temp2[2][$iterator] = str_replace('\\',"\\\\",$temp2[2][$iterator]);	// mPDF 5.3.88
+		$html = preg_replace('#<textarea(.*?)>(.*?)</textarea>#si','<aeratxet'.$temp2[1][$iterator].'>'.trim($temp2[2][$iterator]) .'</aeratxet>',$html,1);
+		$thereistextarea--;
+		$iterator++;
+	}
+	//Restore original tag names
+	$html = str_replace("<erp","<pre",$html);
+	$html = str_replace("</erp>","</pre>",$html);
+	$html = str_replace("<aeratxet","<textarea",$html);
+	$html = str_replace("</aeratxet>","</textarea>",$html);
+	$html = str_replace("</innerpre","</pre",$html); 
+	$html = str_replace("<innerpre","<pre",$html); 
+
+	$html = preg_replace('/<textarea([^>]*)><\/textarea>/si','<textarea\\1> </textarea>',$html);
+	$html = preg_replace('/(<table[^>]*>)\s*(<caption)(.*?<\/caption>)(.*?<\/table>)/si','\\2 position="top"\\3\\1\\4\\2 position="bottom"\\3',$html);	// *TABLES*
+	$html = preg_replace('/<(h[1-6])([^>]*)(>(?:(?!h[1-6]).)*?<\/\\1>\s*<table)/si','<\\1\\2 keep-with-table="1"\\3',$html);	// *TABLES*
+	$html = preg_replace("/\xbb\xa4\xac/", "\n", $html);
+
+	return $html;
+}
+>>>>>>> 217e66f330893f9097dd86605d049ffee36ff4e7
 
 		$this->current_parser = $this->parsers[$fn];
 		return $this->parsers[$fn]->getPageCount();

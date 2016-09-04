@@ -67,9 +67,18 @@ class M_Customer extends MY_Model
 
 		return $query->row();
 	}
+<<<<<<< HEAD
 	function clearBill($billing_id)
 	{
 		$this->db->where('billing_id', $billing_id);
+=======
+	function clearBill($billing_id, $customer_id)
+	{
+		$this->db->where([
+			'billing_id'	=>	$billing_id,
+			'customer_id'	=>	$customer_id
+		]);
+>>>>>>> 217e66f330893f9097dd86605d049ffee36ff4e7
 		$this->db->update('customer_billing', ['paid' => 1]);
 
 		return true;

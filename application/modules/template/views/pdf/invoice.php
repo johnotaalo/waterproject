@@ -1,4 +1,9 @@
+<<<<<<< HEAD
 <!DOCTYPE html><html lang="en">
+=======
+<!DOCTYPE html>
+<html lang="en">
+>>>>>>> 217e66f330893f9097dd86605d049ffee36ff4e7
 	<head>
 		<meta charset="utf-8">
 		<link rel="stylesheet" href="<?php echo $this->config->item('assets_url'); ?>custom/invoice.css" media="all" />
@@ -9,10 +14,17 @@
 				<img style = "height: 70px;" src="<?php echo $this->config->item('assets_url'); ?>images/waterfaucet.jpg">
 			</div>
 			<div class="company">
+<<<<<<< HEAD
 				<h2 class="name"><?php echo $system_variables->company_name; ?></h2>
 				<div><?php echo $system_variables->company_address; ?></div>
 				<div><?php echo $system_variables->company_phone_number; ?></div>
 				<div><a href="mailto:<?php echo $system_variables->company_email_address; ?>"><?php echo $system_variables->company_email_address; ?></a></div>
+=======
+				<h2 class="name">ENKONG'U ENKARE WATER</h2>
+				<div>P.O Box 179-00206, KISERIAN</div>
+				<div>0733-952586</div>
+				<div><a href="mailto:manager@enkonguwater.com">manager@enkonguwater.com</a></div>
+>>>>>>> 217e66f330893f9097dd86605d049ffee36ff4e7
 			</div>
 		</header>
 		<main>
@@ -21,7 +33,10 @@
 					<div class="to">INVOICE TO:</div>
 					<h2 class="name"><?php echo $customer->firstname . " " . $customer->othernames; ?></h2>
 					<div class="address"><?php echo $customer->town; ?></div>
+<<<<<<< HEAD
 					<div class="address"><?php echo $customer->supply_location; ?></div>
+=======
+>>>>>>> 217e66f330893f9097dd86605d049ffee36ff4e7
 					<div class="email"><a href="mailto:<?php echo $customer->emailaddress; ?>"><?php echo $customer->emailaddress; ?></a></div>
 					<div class = "address">Meter No. <?php echo $customer->meter_no; ?></div>
 				</div>
@@ -31,6 +46,10 @@
 					<div class="date">Due Date: <?php echo date('d/m/Y', strtotime($current->meter_reading_date . ' + 4 days')); ?></div>
 				</div>
 			</div>
+<<<<<<< HEAD
+=======
+
+>>>>>>> 217e66f330893f9097dd86605d049ffee36ff4e7
 			<div class = "clearfix" style="margin-top: 15px;">
 				<table border="0" cellspacing="0" cellpadding="0">
 					<thead>
@@ -47,6 +66,10 @@
 					</tbody>
 				</table>
 			</div>
+<<<<<<< HEAD
+=======
+
+>>>>>>> 217e66f330893f9097dd86605d049ffee36ff4e7
 			<table border="0" cellspacing="0" cellpadding="0">
 				<thead>
 					<tr>
@@ -68,12 +91,21 @@
 					<tr>
 						<td class="no">02</td>
 						<td class="desc"><h3>Standing Charge</h3>This amount has to be paid monthly regardless</td>
+<<<<<<< HEAD
 						<td class="unit">Ksh. <?php echo $standing_charge->amount; ?></td>
 						<td class="qty">1 month</td>
 						<td class="total">Ksh. Ksh. <?php echo $standing_charge->amount; ?></td>
 					</tr>
 					<tr>
 						<td class="no">03</td>
+=======
+						<td class="unit">Ksh. 50.00</td>
+						<td class="qty">1 month</td>
+						<td class="total">Ksh. 50.00</td>
+					</tr>
+					<tr>
+					<td class="no">03</td>
+>>>>>>> 217e66f330893f9097dd86605d049ffee36ff4e7
 						<td class="desc"><h3>Balance Carried Forward</h3>Balance brought down from last month</td>
 						<td class="unit">Ksh. <?php echo number_format($carried_forward, 2); ?></td>
 						<td class="qty"></td>
@@ -90,6 +122,7 @@
 			</table>
 			<div id="thanks">Thank you!</div>
 			<footer>
+<<<<<<< HEAD
 			Invoice was created on a computer and is valid without the signature and seal.
 			</footer>
 			<pagebreak />
@@ -109,5 +142,29 @@
 			</div>
 		</main>	
 		<footer>Invoice was created on a computer and is valid without the signature and seal.</footer>
+=======
+				Invoice was created on a computer and is valid without the signature and seal.
+			</footer>
+			<pagebreak />
+			<div id="notices">
+			<div>NOTICE:</div>
+			<div class="notice">
+				1. The applicants required to provide their own 127mm(1/2 inch)High density PVC piping from the main line to the premises
+				<br/>2. The applicant agrees to provide their own water meter secured in a LOCKABLE metal box and cemented to the ground
+				<br/>3. The recommended meter is the sensus metering system model 405s available from Davis and shirtliff ,Dundori road Nairobi
+				<br/>4. All due bills must be paid by the 5th day of the following month
+				<br/>5. water supply will be disconnected on the 6th day of the month
+				<br/>6. The applicant agrees to pay a reconnection fee of shs 500.00
+				<br/>7. The applicant agrees to report and repair all water leaks within their property
+				<br/>8. The applicant agrees not to install any water sucking devices or pumps which will deprive their neighbors and other consumers water
+				<br/>9. The applicant agrees NOT TO RESELL WATER OR DO IRRIGATION. Penalty will be immediate disconnection and any reconnection will be on a deposit of shs5000.00
+				<br/>10. Water mete standing charges :50.00/month
+			</div>
+			</div>
+		</main>
+		<footer>
+		Invoice was created on a computer and is valid without the signature and seal.
+		</footer>
+>>>>>>> 217e66f330893f9097dd86605d049ffee36ff4e7
 	</body>
 </html>

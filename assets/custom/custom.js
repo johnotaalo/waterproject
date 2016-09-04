@@ -1,4 +1,5 @@
 $(document).ready(function(){
+<<<<<<< HEAD
 	$('.datatable').DataTable();
 	$('#usertable').DataTable({
 		fixedHeader: true,
@@ -29,6 +30,11 @@ $(document).ready(function(){
 						error 	: function(jqXHR, textStatus, errorThrown)
 						{
 							error_message = jqXHR.responseJSON.message;
+=======
+	$('.datatable').DataTable({
+		fixedHeader: true
+	});
+>>>>>>> 217e66f330893f9097dd86605d049ffee36ff4e7
 
 							swal("Error!", error_message, "error");
 						}
@@ -78,6 +84,11 @@ $(document).ready(function(){
 		if($('#add_customer_billing')[0])
 		{
 			volume_used = $('#volume_used').val();
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 217e66f330893f9097dd86605d049ffee36ff4e7
 			if(volume_used == "")
 			{
 				$('#volume_used').parent().addClass('has-error');
@@ -87,6 +98,7 @@ $(document).ready(function(){
 				$('.modal form').submit();
 			}
 		}
+<<<<<<< HEAD
 		else if($('#adduser_form')[0])
 		{
 			var form = $('#adduser_form');
@@ -147,11 +159,14 @@ $(document).ready(function(){
 				});
 			}
 		}
+=======
+>>>>>>> 217e66f330893f9097dd86605d049ffee36ff4e7
 		else
 		{
 			$('.modal form').submit();
 		}
 	});
+<<<<<<< HEAD
 
 	if ($('.btn-information')[0])
 
@@ -241,24 +256,83 @@ $(document).ready(function(){
 
 		});
 
+=======
+	if ($('.btn-information')[0])
+	{
+		$('.btn-information').click(function(){
+			customer_id = $(this).attr('data-id');
+			$('.modal .modal-body').load(base_url + 'Billing/customerData/json/' + billing_id + '/' + customer_id, function(data){
+				$('.modal .modal-body').html("");
+				obj = jQuery.parseJSON(data);
+				$('.modal .modal-body').html(obj.page);
+				$('.modal .modal-title').html(obj.title);
+				$('.datepicker').datepicker({
+					endDate: '+0d',
+					autoclose: true,
+					format: 'dd-mm-yyyy',
+				});
+				$('#current_reading').keyup(function(){
+					current = $('#current_reading').val();
+
+					current = parseInt(current);
+					
+					previous = parseInt($('#previous_reading').val());
+
+					volume_used = current - previous;
+
+					if(volume_used < 0)
+					{
+						$('#volume_used').parent().addClass('has-error');
+					}
+					else
+					{
+						if(!isNaN(volume_used))
+						{
+							$('#volume_used').parent().removeClass('has-error');
+							$('#volume_used').val(volume_used);
+						}
+						else
+						{
+							$('#volume_used').val("");
+						}
+					}
+
+				});
+			});
+			$('.modal').modal();
+		});
+>>>>>>> 217e66f330893f9097dd86605d049ffee36ff4e7
 	}
 
 	if($('.call-modal')[0])
 	{
 		$('.call-modal').click(function(event){
 			event.preventDefault();
+<<<<<<< HEAD
 			url = $(this).attr('href');
+=======
+
+			url = $(this).attr('href');
+
+>>>>>>> 217e66f330893f9097dd86605d049ffee36ff4e7
 			$('.modal .modal-body').load(url, function(data){
 				obj = jQuery.parseJSON(data);
 				$('.modal .modal-body').html(obj.page);
 				$('.modal .modal-title').html(obj.title);
 			});
+<<<<<<< HEAD
+=======
+
+>>>>>>> 217e66f330893f9097dd86605d049ffee36ff4e7
 			$('.modal').modal();
 		});
 	}
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 217e66f330893f9097dd86605d049ffee36ff4e7
 	if ($('#addnewmonth')[0])
 	{
 		$('#addnewmonth').click(function(e){
@@ -282,6 +356,7 @@ $(document).ready(function(){
 	{
 		$('.clearance').click(function(e){
 			e.preventDefault();
+<<<<<<< HEAD
 			id = $(this).attr('data-id');
 		});
 	}
@@ -500,3 +575,11 @@ function isEmail(email) {
 	var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
 	return regex.test(email);
 }
+=======
+
+			id = $(this).attr('data-id');
+			console.log(id);
+		});
+	}
+});
+>>>>>>> 217e66f330893f9097dd86605d049ffee36ff4e7
