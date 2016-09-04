@@ -23,8 +23,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = "http://" . $_SERVER['SERVER_NAME'] . '/waterproject/';
-$config['assets_url'] = "http://" . $_SERVER['SERVER_NAME'] . '/waterproject/assets/';
+$config['base_url'] = "http://" . $_SERVER['SERVER_NAME'] . ':8000/';
+$config['assets_url'] = "http://" . $_SERVER['SERVER_NAME'] . ':8000/assets/';
 
 /*
 |--------------------------------------------------------------------------
