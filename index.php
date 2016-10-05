@@ -268,7 +268,6 @@ switch (ENVIRONMENT)
 
 	define('CONFIGPATH', realpath('./startup') . '/');
 	define('APPPATH', $application_folder.DIRECTORY_SEPARATOR);
-	define('CONFIGPATH', realpath('./startup') . '/');
 
 	// The path to the "views" directory
 	if ( ! isset($view_folder[0]) && is_dir(APPPATH.'views'.DIRECTORY_SEPARATOR))
