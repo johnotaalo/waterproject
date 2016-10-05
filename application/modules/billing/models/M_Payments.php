@@ -38,7 +38,13 @@ class M_Payments extends MY_Model
 
 	function addPayment($data)
 	{
-		$this->db->insert('customer_payment', $data);
+		$inserted = $this->db->insert('customer_payment', $data);
+        if (!$inserted):
+            $errors = $this->db->error();
+            echo "<pre>";print_r($errors);die;
+        endif;
+
+        return $inserted;
 	}
 
 	function getPaymentInformation($customer_id)
@@ -46,7 +52,7 @@ class M_Payments extends MY_Model
 		$this->db->where('customer_id', $customer_id);
 		$this->db->order_by('paid_on', 'DESC');
 		$this->db->from('customer_payment');
-		$this->db->join('payment_for_types', 'customer_payment.payment_for = payment_for_types.id');
+		$this->db->join('payment_for_types', 'customer_payment.payment_for_id = payment_for_types.id');
 
 		$query = $this->db->get();
 

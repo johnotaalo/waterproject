@@ -44,7 +44,7 @@
 	<div class = "form-group">
 		<div class = "input-group">
 			<span class = "input-group-addon">Previous Meter Reading</span>
-			<input type="text" id = "previous_reading" class="form-control" value = "<?php echo $previous_data->meter_reading; ?>" disabled>
+			<input type="text" id = "previous_reading" class="form-control" value = "<?php if(isset($previous_data->meter_reading)){ echo $previous_data->meter_reading;}else { echo '0'; } ?>" disabled>
 		</div>
 	</div>
 

@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * @property  M_Customer
+ */
 class Payments extends MY_Controller
 {
 	function __construct()
@@ -61,7 +64,7 @@ class Payments extends MY_Controller
 		$this->load->module('Customer');
 		if ($this->input->post()) {
 			$data['comment'] = $this->input->post('comment');
-			$data['payment_for'] = $this->input->post('payment_for');
+			$data['payment_for_id'] = $this->input->post('payment_for');
 			$data['amount_paid'] = $this->input->post('amount');
 			$data['customer_id'] = $customer_id;
 
@@ -97,6 +100,7 @@ class Payments extends MY_Controller
 	function History($customer_id)
 	{
 		$this->load->module('Customer');
+//        echo "<pre>";print_r($this->customer);die;
 		$data['title'] = "Customer Transaction History";
 		$data['customer_data'] = $this->M_Customer->getCustomerById($customer_id);
 		$data['bills'] = $this->generateBillingInformation($customer_id);
@@ -134,6 +138,7 @@ class Payments extends MY_Controller
 	function generatePaymentInformation($customer_id)
 	{
 		$customer_payment_information = $this->M_Payments->getPaymentInformation($customer_id);
+
 		$customer_payment_table = "";
 
 		if ($customer_payment_information) {
