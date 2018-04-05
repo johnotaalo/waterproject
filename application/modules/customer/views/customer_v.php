@@ -21,6 +21,7 @@
 					<table class = "table table-bordered table-hover table-stripped datatable">
 						<thead>
 							<th>#</th>
+							<th>E.W.S No.</th>
 							<th>First Name</th>
 							<th>Other Names</th>
 							<th>Phone Number</th>

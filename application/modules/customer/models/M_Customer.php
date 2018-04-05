@@ -7,9 +7,11 @@ class M_Customer extends MY_Model
 		parent::__construct();
 	}
 
-	function addCustomer()
+	function addCustomer($data = array())
 	{
-		$result = $this->db->insert('customer', $this->input->post());
+		$insert_data = ($this->input->post()) ? $this->input->post() : $data;
+
+		$result = $this->db->insert('customer', $insert_data);
 
 		return $result;
 	}
@@ -39,5 +41,37 @@ class M_Customer extends MY_Model
 		$query = $this->db->get_where('customer', ['id' => $id]);
 
 		return $query->row();
+	}
+
+	function getCustomerMonthUsed($billing_id, $customer_id)
+	{
+		$this->db->where([
+				'billing_id'	=>	$billing_id,
+				'customer_id'	=>	$customer_id
+			]);
+
+		$query = $this->db->get('customer_billing');
+
+		return $query->row();
+	}
+
+	function getTotalDueByCustomer($customer_id)
+	{
+		$this->db->where([
+			'customer_id'	=>	$customer_id,
+			'paid'			=>	0
+		]);
+		$this->db->select_sum('amount');
+
+		$query = $this->db->get('customer_billing');
+
+		return $query->row();
+	}
+	function clearBill($billing_id)
+	{
+		$this->db->where('billing_id', $billing_id);
+		$this->db->update('customer_billing', ['paid' => 1]);
+
+		return true;
 	}
 }

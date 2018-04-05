@@ -1,109 +1,389 @@
 <?php
 
+
+
 class M_Billing extends MY_Model
+
 {
+
 	function __construct()
+
 	{
+
 		parent::__construct();
+
 	}
 
-	function getBillingYear($year, $month)
+	function getActiveStandingCharge()
 	{
-		$query = $this->db->get_where('billing', ['year' => $year, 'month' => $month], 1);
+		$this->db->where('is_active', 1);
 
-		return $query->row();
+		return $this->db->get('standing_charges')->row();
 	}
 
-	function addBilling($data)
-	{
-		$result = $this->db->insert('billing', $data);
+	function getBillingMonths()
 
-		return $result;
-	}
-
-	function getAvailableYears()
 	{
-		$this->db->distinct('year');
-		$this->db->order_by('year', 'desc');
-		$this->db->select('year');
+
+		$this->db->order_by('billcheckingdate', 'DESC');
 
 		$query = $this->db->get('billing');
 
+
+
 		return $query->result();
+
 	}
 
-	function getBalanceCarriedForward($customer_id, $year, $month)
-	{
-		$sql = "SELECT SUM(cp.amount_paid) AS total_paid, SUM(cb.amount) AS amount_used FROM customer c 
-		LEFT JOIN customer_payment cp ON c.id = cp.customer_id
-		LEFT JOIN customer_billing cb ON cb.customer_id = c.id
-		LEFT JOIN billing b ON b.id = cb.billing_id
-		WHERE c.id = 1
-		AND b.year <= '2016' AND b.month <= '06'
-		GROUP BY c.id ";
-	}
 
-	function get_total_amount_paid_by_customer($customer_id, $year, $month)
-	{
-		$this->db->where(
-			[
-				'customer_id' => $customer_id
-			]
-		);
-		$this->db->select_sum('amount_paid');
-		$query = $this->db->get('customer_payment');
 
-		return $query->row();
-	}
+	function getMonthlyVolume($id)
 
-	function get_total_amount_due_by_customer($customer_id)
 	{
-		$this->db->where([
-			'customer_id' => $customer_id
-		]);
-		$this->db->select_sum('amount');
+
+		$this->db->where('billing_id', $id);
+
+
+
+		$this->db->select_sum('water_used');
+
+
+
 		$query = $this->db->get('customer_billing');
 
+
+
 		return $query->row();
+
 	}
 
-	function get_amount_used_by_customer_in_month($id, $year, $month)
+
+
+	function getMonthDetails($billing_id)
+
 	{
-		$this->db->select('water_used, amount');
-		$this->db->from('customer_billing');
-		$this->db->join('billing', 'customer_billing.billing_id = billing.id');
+
+		$this->db->where('id', $billing_id);
+
+
+
+		$query = $this->db->get('billing');
+
+
+
+		return $query->row();
+
+	}
+
+
+
+	function getBillingInformation($billing_id)
+
+	{
+
+		$sql = "SELECT c.*, cb.water_used FROM customer c
+
+		LEFT JOIN customer_billing cb ON cb.customer_id = c.id AND cb.billing_id = $billing_id
+
+		WHERE c.is_active != -1";
+
+
+
+		$query = $this->db->query($sql);
+
+
+
+		return $query->result();
+
+	}
+
+
+
+	function getCustomerData($customer_id, $billing_id)
+
+	{
+
+		$sql = "SELECT c.*, cb.meter_reading_date, cb.meter_reading, cb.water_used FROM customer c
+
+		LEFT JOIN customer_billing cb ON cb.customer_id = c.id AND cb.billing_id = $billing_id
+
+		WHERE c.id = {$customer_id}";
+
+
+
+		$query = $this->db->query($sql);
+
+
+
+		return $query->row();
+
+	}
+
+
+
+	function getBiilingExistence($billing_id, $customer_id)
+
+	{
+
 		$this->db->where([
-						'billing.year' => $year,
-						'billing.month' => $month,
-						'customer_billing.customer_id' => $id
-						]);
+
+			'billing_id' => $billing_id,
+
+			'customer_id' => $customer_id
+
+		]);
+
+
+
+		$query = $this->db->get('customer_billing');
+
+
+
+		return $query->row();
+
+	}
+
+
+
+	function updateBillingInformation($customer_id, $billing_id, $data)
+
+	{
+
+		$this->db->where(['customer_id' => $customer_id, 'billing_id' => $billing_id]);
+
+		$this->db->update('customer_billing', $data);
+
+	}
+
+
+
+	function addBillingInformation($data)
+	{
+		$res = $this->db->insert('customer_billing', $data);
+
+		return $res;
+	}
+
+
+
+	function getCustomerBillingInformation($customer_id)
+
+	{
+
+		$this->db->where(['customer_id' => $customer_id]);
+
+
+
+		$this->db->from('customer_billing');
+
+		$this->db->join('billing', 'billing.id = customer_billing.billing_id');
+
 		$query = $this->db->get();
 
+
+
+		return $query->result();
+
+	}
+
+
+
+	function exists($year, $month)
+
+	{
+
+		$this->db->where(['year' => $year, 'month' => $month]);
+
+		$query = $this->db->get('billing');
+
+
+
 		return $query->row();
+
 	}
 
-	function getCustomerBillingInformation($customer_id, $billing_id)
-	{
-		$this->db->where([
-				'customer_id'=> $customer_id,
-				'billing_id' => $billing_id
-		]);
 
-		$query = $this->db->get('customer_billing');
+
+	function addBillingMonth($post_data)
+
+	{
+
+		$this->db->insert('billing', $post_data);
+
+
+
+		return $this->db->insert_id();
+
+	}
+
+
+
+	function get_customers_with_monthly_bill($billing_id)
+
+	{
+
+		$sql = "SELECT id FROM customer WHERE id IN (SELECT customer_id FROM customer_billing WHERE billing_id = {$billing_id})";
+
+
+
+		return $this->db->query($sql)->result();
+
+	}
+
+
+
+	function getCustomersCarriedForward($customer_id, $billing_id)
+
+	{
+
+		$query = $this->db->query("SELECT SUM(amount) - (SELECT SUM(amount_paid) FROM customer_payment WHERE customer_id = 1) as carried_forward FROM customer_billing WHERE customer_id = {$customer_id} AND billing_id != {$billing_id}");
+
+
 
 		return $query->row();
+
 	}
 
-	function updateCustomerBillingInformation($id, $customer_data)
-	{
-		$this->db->where('id', $id);
 
-		$this->db->update('customer_billing', $customer_data);
+
+	function get_month_payment_details($customer_id, $billing_id)
+
+	{
+
+		$query = $this->db->query("SELECT b.year, b.month, cb.water_used, cb.meter_reading, cb.meter_reading_date, cb.amount FROM customer_billing cb
+
+			JOIN billing b ON b.id = cb.billing_id
+
+			WHERE cb.customer_id = {$customer_id} AND b.id = {$billing_id}");
+
+
+
+		return $query->row();
+
 	}
 
-	function addCustomerBillingInformation($customer_data)
+
+
+	function getPreviousData($customer_id, $billing_id)
+
 	{
-		$this->db->insert('customer_billing', $customer_data);
+
+		$query = $this->db->query("SELECT cb.meter_reading_date, cb.meter_reading FROM customer_billing cb
+
+			JOIN billing b ON b.id = cb.billing_id
+
+			WHERE cb.customer_id = {$customer_id} AND b.id != $billing_id AND cb.meter_reading_date > b.billcheckingdate
+
+			ORDER BY b.billcheckingdate DESC
+
+			LIMIT 1");
+
+
+
+		return $query->row();
+
+	}
+
+
+
+	function getPreviousBillingData($billing_id, $customer_id)
+
+	{
+
+		$this->db->select_max('id');
+
+		$this->db->where('id <', $billing_id);
+
+
+
+		$query = $this->db->get('billing');
+
+
+
+		$id = $query->row();
+
+
+
+		if ($id) {
+
+			$this->db->where([
+
+					'billing_id' 	=>	$id->id,
+
+					'customer_id'	=>	$customer_id
+
+				]);
+
+
+
+			$query = $this->db->get('customer_billing');
+
+
+
+			return $query->row();
+
+		}
+
+		else
+
+		{
+
+			return FALSE;
+
+		}
+
+	}
+
+
+
+	function getCurrentBillingMonth()
+
+	{
+
+		$this->db->select_max('id');
+
+
+
+		$id = $this->db->get('billing')->row();
+
+
+
+		if ($id) {
+
+			$this->db->select('year, month');
+
+
+
+			$this->db->where('id', $id->id);
+
+
+
+			$result = $this->db->get('billing')->row();
+
+
+
+			return $result;
+
+		}
+
+		else
+
+		{
+
+			return FALSE;
+
+		}
+
+	}
+
+	function getBillingStandingCharge($billing_id, $customer_id)
+	{
+		$sql  = "SELECT sc.amount FROM standing_charges sc
+		JOIN customer_billing cb ON cb.standing_charge_id = sc.id AND (cb.billing_id = {$billing_id} AND cb.customer_id = {$customer_id})";
+
+		$query = $this->db->query($sql);
+
+		return $query->row();
 	}
 
 }

@@ -1,4 +1,6 @@
 .htaccess
 water.sql
 application/config/database.php
+application/config/*
 template/*
+sftp-config.json
